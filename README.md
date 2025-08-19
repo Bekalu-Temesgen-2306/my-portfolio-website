@@ -59,20 +59,7 @@ src/
 └── index.tsx             # Entry (CRA)
 ```
 
-## ✅ Quality rating and recommendations
 
-- **Overall rating**: 8.7/10
-- **Strengths**:
-  - Clean design, smooth animations, clear CTAs
-  - Dark mode and responsive behavior
-  - Filterable projects and organized sections
-- **Recommendations**:
-  - Add real project screenshots and live links for each card
-  - Add basic SEO: meta description, Open Graph, social image
-  - Generate `sitemap.xml` and verify `robots.txt`
-  - Optimize images (WebP/AVIF) and run Lighthouse to target 90+ scores
-  - Add a 404 route and basic analytics (e.g., Vercel Analytics)
-  - Consider minimal tests for critical UI (render + accessibility)
 
 ## 🧪 Getting started
 
@@ -89,28 +76,7 @@ Build:
 npm run build
 ```
 
-## ▲ Free deployment on Vercel (recommended)
 
-Option A — Git integration (one-click deploys)
-1) Push this repo to GitHub/GitLab/Bitbucket.
-2) Go to vercel.com → New Project → Import your repo.
-3) Framework preset: “Create React App” (auto-detected).
-4) Build Command: `npm run build`
-5) Output/Publish Directory: `build`
-6) Deploy. Vercel will create a preview URL and a production domain.
-
-Option B — Vercel CLI
-```bash
-npm i -g vercel
-vercel
-# For production
-vercel --prod
-```
-
-Post-deploy tips
-- Set project name and custom domain in the Vercel dashboard.
-- Enable Vercel Analytics and Speed Insights.
-- Add environment variables if you later integrate APIs.
 
 ## 📞 Contact
 
