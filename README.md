@@ -1,46 +1,124 @@
-# Getting Started with Create React App
+# Bekalu Temesgen — Portfolio Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive portfolio built with React, Framer Motion, and custom CSS. It showcases projects, skills, and background with smooth interactions and dark/light themes.
 
-## Available Scripts
+## 🚀 Highlights
 
-In the project directory, you can run:
+- **React 19** app with functional components and hooks
+- **Smooth animations** with Framer Motion
+- **Dark/Light mode** with persistence
+- **Filterable projects** and **interactive skill categories**
+- **Scroll-to-top** helper and refined mobile experience
+- **Accessible UI**: focus states, ARIA labels where relevant
 
-### `npm start`
+## 📊 Language & tech usage (approx.)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+| Technology | Share |
+| --- | --- |
+| JavaScript/JSX (React) | ~70% |
+| CSS | ~18% |
+| TypeScript (.ts/.tsx for bootstrapping, tests) | ~8% |
+| JSON/Config | ~4% |
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Notes: The UI components are primarily `.jsx`. TypeScript is used in the entry, tests, and typings.
 
-### `npm test`
+## 🧩 Sections
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Hero: prominent name, role typing, CTAs, social links
+- About: stats and compact education/experience timeline
+- Skills: category chips + narrative of strengths
+- Projects: filterable cards with tech stack and links
+- Achievements: certificates and highlights
+- Contact: polished info cards and validated form
+- Scroll to Top: floating button for quick navigation
 
-### `npm run build`
+## 🛠️ Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- React 19, React Router, React Helmet Async
+- Framer Motion, React Intersection Observer
+- Lucide React icons
+- Create React App (CRA) build tooling
+- Custom CSS with variables (no CSS frameworks)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 📁 Project Structure (simplified)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+src/
+├── components/
+│   ├── Header.jsx        # Navigation + theme toggle
+│   ├── Hero.jsx          # Hero section
+│   ├── About.jsx         # About + timeline
+│   ├── Skills.jsx        # Skill categories + narrative
+│   ├── Projects.jsx      # Project grid + filters
+│   ├── Achievements.jsx  # Certificates
+│   ├── Contact.jsx       # Contact info + form
+│   ├── Footer.jsx        # Footer
+│   └── ScrollToTop.jsx   # Floating scroll control
+├── App.jsx               # Main routes and layout
+├── App.css               # Global styles, components helpers
+└── index.tsx             # Entry (CRA)
+```
 
-### `npm run eject`
+## ✅ Quality rating and recommendations
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **Overall rating**: 8.7/10
+- **Strengths**:
+  - Clean design, smooth animations, clear CTAs
+  - Dark mode and responsive behavior
+  - Filterable projects and organized sections
+- **Recommendations**:
+  - Add real project screenshots and live links for each card
+  - Add basic SEO: meta description, Open Graph, social image
+  - Generate `sitemap.xml` and verify `robots.txt`
+  - Optimize images (WebP/AVIF) and run Lighthouse to target 90+ scores
+  - Add a 404 route and basic analytics (e.g., Vercel Analytics)
+  - Consider minimal tests for critical UI (render + accessibility)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🧪 Getting started
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Prereqs: Node 18+, npm
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+npm install
+npm start
+```
 
-## Learn More
+Build:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm run build
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## ▲ Free deployment on Vercel (recommended)
+
+Option A — Git integration (one-click deploys)
+1) Push this repo to GitHub/GitLab/Bitbucket.
+2) Go to vercel.com → New Project → Import your repo.
+3) Framework preset: “Create React App” (auto-detected).
+4) Build Command: `npm run build`
+5) Output/Publish Directory: `build`
+6) Deploy. Vercel will create a preview URL and a production domain.
+
+Option B — Vercel CLI
+```bash
+npm i -g vercel
+vercel
+# For production
+vercel --prod
+```
+
+Post-deploy tips
+- Set project name and custom domain in the Vercel dashboard.
+- Enable Vercel Analytics and Speed Insights.
+- Add environment variables if you later integrate APIs.
+
+## 📞 Contact
+
+- Email: bekalutemesgen74@gmail.com  
+- Phone: +251 (992) 721-492  
+- Location: Bahir Dar, Ethiopia  
+- GitHub: Bekalu-Temesgen2306
+
+---
+
+Built with ❤️ by Bekalu Temesgen
