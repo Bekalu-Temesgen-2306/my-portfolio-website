@@ -43,21 +43,11 @@ const Achievements = () => {
       category: 'academic',
       skills: ['Computer Science', 'Programming', 'Problem Solving']
     },
-    {
-      id: 4,
-      title: 'Project Showcase Recognition',
-      issuer: 'University Department',
-      date: '2023',
-      description: 'EthioTour website project was recognized for its innovative approach to showcasing Ethiopian tourism and cultural heritage.',
-      icon: Award,
-      image: null,
-      category: 'recognition',
-      skills: ['Web Development', 'UI/UX Design', 'Innovation']
-    }
+
   ];
 
   const stats = [
-    { number: '4+', label: 'Certifications', icon: FileText },
+    { number: '5+', label: 'Certifications', icon: FileText },
     { number: '20+', label: 'Projects Completed', icon: Award },
     { number: '3+', label: 'Years Learning', icon: Calendar },
     { number: '100+', label: 'Hours of Study', icon: Star },
@@ -135,29 +125,6 @@ const Achievements = () => {
                     {achievement.description}
                   </p>
 
-                  {/* Skills */}
-                  <div className="flex flex-wrap gap-2">
-                    {achievement.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-3 py-1 bg-light dark:bg-dark text-xs font-medium rounded-full"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Certificate Image */}
-                  {achievement.image && (
-                    <div className="mt-4">
-                      <img
-                        src={achievement.image}
-                        alt={`${achievement.title} certificate`}
-                        className="w-32 h-auto rounded-lg border border-border"
-                      />
-                    </div>
-                  )}
-
                   {/* Action Button */}
                   <motion.button
                     whileHover={{ scale: 1.05 }}
@@ -165,7 +132,7 @@ const Achievements = () => {
                     className="btn btn-secondary text-sm mt-4"
                     onClick={() => {
                       if (achievement.image) {
-                        window.open(achievement.image, '_blank');
+                        window.open("/images/udacity.jpg", '_blank');
                       }
                     }}
                   >
@@ -223,25 +190,11 @@ const Achievements = () => {
           </div>
         </motion.div>
 
-        {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="text-center mt-16"
-        >
           <p className="text-lg text-text-muted mb-6">
             Always striving to learn new technologies and improve my skills.
           </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn btn-primary"
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            Let's Work Together
-          </motion.button>
-        </motion.div>
+
+
       </div>
     </section>
   );

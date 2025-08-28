@@ -92,34 +92,9 @@ const Hero = () => {
               that solve real-world problems.
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="flex flex-wrap gap-4"
-            >
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn btn-primary"
-                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                View My Work
-                <ArrowRight size={20} />
-              </motion.button>
-              
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn btn-secondary"
-                onClick={() => window.open('/resume.pdf', '_blank')}
-              >
-                <Download size={20} />
-                Download CV
-              </motion.button>
-            </motion.div>
 
-            {/* Social Links */}
+            
+ {/* Social Links */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -145,6 +120,40 @@ const Hero = () => {
                 </motion.a>
               ))}
             </motion.div>
+
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+              className="flex flex-wrap gap-4"
+            >
+
+
+
+
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn btn-primary"
+                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                View My Work
+                <ArrowRight size={15} />
+              </motion.button>
+              
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn btn-secondary"
+                onClick={() => window.open('/resume.pdf', '_blank')}
+              >
+                <Download size={15} />
+                Download CV
+              </motion.button>
+            </motion.div>
+
+           
           </motion.div>
 
           {/* Right Content - Profile Image */}

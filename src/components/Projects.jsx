@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { ExternalLink, Github, Eye, Code, Palette, Database } from 'lucide-react';
+import { Github, Eye, Code, Palette, Database } from 'lucide-react';
 
 const Projects = () => {
   const [ref, inView] = useInView({
@@ -119,10 +119,7 @@ const Projects = () => {
           className="text-center mb-16"
         >
           <h2 className="section-title">Featured Projects</h2>
-          <p className="text-lg text-text-muted max-w-3xl mx-auto">
-            Here are some of my recent projects that showcase my skills in web development, 
-            design, and problem-solving. Each project represents a unique challenge and solution.
-          </p>
+
         </motion.div>
 
         {/* Filter Buttons */}
@@ -163,44 +160,12 @@ const Projects = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="card group overflow-hidden"
               >
-                {/* Project Image */}
-                <div className="relative overflow-hidden rounded-lg mb-6">
-                  <div className="aspect-video bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                    <span className="text-4xl">🚀</span>
-                  </div>
-                  <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <div className="flex gap-4">
-                      {project.liveUrl && (
-                        <motion.a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="p-3 bg-white rounded-full text-dark hover:bg-primary hover:text-white transition-colors duration-300"
-                        >
-                          <ExternalLink size={20} />
-                        </motion.a>
-                      )}
-                      <motion.a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="p-3 bg-white rounded-full text-dark hover:bg-primary hover:text-white transition-colors duration-300"
-                      >
-                        <Github size={20} />
-                      </motion.a>
-                    </div>
-                  </div>
                   {project.status === 'in-progress' && (
                     <div className="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">
                       In Progress
                     </div>
                   )}
-                </div>
-
+                  
                 {/* Project Content */}
                 <div className="space-y-4">
                   <div className="flex items-center gap-2 mb-2">
@@ -215,31 +180,6 @@ const Projects = () => {
                   <p className="text-text-muted text-sm leading-relaxed">
                     {project.description}
                   </p>
-
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 bg-light dark:bg-dark text-xs font-medium rounded-full"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Features */}
-                  <div className="space-y-2">
-                    <h4 className="text-sm font-semibold text-text">Key Features:</h4>
-                    <ul className="text-xs text-text-muted space-y-1">
-                      {project.features.slice(0, 3).map((feature) => (
-                        <li key={feature} className="flex items-center gap-2">
-                          <span className="w-1 h-1 bg-primary rounded-full"></span>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
 
                   {/* Action Buttons */}
                   <div className="flex gap-3 pt-4">

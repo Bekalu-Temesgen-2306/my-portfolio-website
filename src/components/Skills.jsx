@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Code, Palette, Database, Cloud, Smartphone, Globe } from 'lucide-react';
+import { Code, Palette, Database, Cloud } from 'lucide-react';
 
 const Skills = () => {
   const [ref, inView] = useInView({
@@ -63,10 +63,6 @@ const Skills = () => {
           className="text-center mb-16"
         >
           <h2 className="section-title">Skills & Expertise</h2>
-          <p className="text-lg text-text-muted max-w-3xl mx-auto">
-            I've developed a diverse skill set through continuous learning and hands-on project experience. 
-            Here's what I bring to the table.
-          </p>
         </motion.div>
 
         {/* Skill Categories */}
@@ -144,7 +140,43 @@ const Skills = () => {
           </motion.div>
         </motion.div>
 
-        {/* Removed extra grid in favor of concise narrative */}
+
+  <h2 className="text-2xl font-bold mb-16 text-center">
+    What I Do Best
+  </h2>
+
+
+          <div className="grid grid-3 gap-6">
+            {[
+              {
+                title: 'Web Development',
+                description: 'Building responsive and modern web applications using the latest technologies.',
+                icon: '🌐'
+              },
+              {
+                title: 'UI/UX Design',
+                description: 'Creating intuitive and beautiful user interfaces with focus on user experience.',
+                icon: '🎨'
+              },
+              {
+                title: 'Problem Solving',
+                description: 'Analyzing complex problems and developing efficient, scalable solutions.',
+                icon: '💡'
+              }
+            ].map((skill, index) => (
+              <motion.div
+                key={skill.title}
+                initial={{ opacity: 0, y: 30 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.9 + index * 0.1 }}
+                className="card text-center"
+              >
+                <div className="text-4xl mb-4">{skill.icon}</div>
+                <h4 className="font-bold text-lg mb-3">{skill.title}</h4>
+                <p className="text-text-muted">{skill.description}</p>
+              </motion.div>
+            ))}
+          </div>
 
         {/* Call to Action */}
         <motion.div
@@ -153,15 +185,16 @@ const Skills = () => {
           transition={{ duration: 0.8, delay: 1 }}
           className="text-center mt-16"
         >
-          <p className="text-lg text-text-muted mb-6">
-            Always learning and expanding my skill set to stay current with the latest technologies.
-          </p>
+
+
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="btn btn-primary"
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
           >
+
+
             See My Work in Action
           </motion.button>
         </motion.div>
