@@ -11,7 +11,7 @@ const About = () => {
   const timeline = [
     {
       year: "2023 - Present",
-      text: "Computer Science Student, Bahir Dar University (focus: Web Development & UX Design)",
+      text: "Computer Science Student, Bahir Dar University (focus on: Web Development & UX/UI Design)",
     },
     {
       year: "2023",

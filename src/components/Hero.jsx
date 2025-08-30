@@ -10,7 +10,6 @@ const Hero = () => {
   const texts = [
     'Web Developer',
     'UX/UI Designer', 
-    'Computer Science student',
     'Content Creator'
   ];
 
@@ -64,7 +63,7 @@ const Hero = () => {
                 transition={{ delay: 0.2, duration: 0.8 }}
                 className="hero__title"
               >
-                <span className="text-gradient"> hi, I'm bekalu </span>
+                <span className="text-gradient"> hi, Its Me </span>
               </motion.h1>
               
               <motion.div

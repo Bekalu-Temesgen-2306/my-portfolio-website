@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Code, Palette, Database, Cloud } from 'lucide-react';
+import { Code, Palette, Database, Cloud, Zap, Target, Users } from 'lucide-react';
 
 const Skills = () => {
   const [ref, inView] = useInView({
@@ -52,6 +52,27 @@ const Skills = () => {
 
   const currentSkills = skills[activeCategory] || [];
 
+  const whatIDoItems = [
+    {
+      title: 'Web Development',
+      description: 'Building responsive and modern web applications using the latest technologies and best practices.',
+      icon: Code,
+      color: '#61DAFB'
+    },
+    {
+      title: 'UI/UX Design',
+      description: 'Creating intuitive and beautiful user interfaces with focus on user experience and accessibility.',
+      icon: Palette,
+      color: '#FF6B6B'
+    },
+    {
+      title: 'Problem Solving',
+      description: 'Analyzing complex problems and developing efficient, scalable solutions with clean code.',
+      icon: Zap,
+      color: '#FFD54F'
+    }
+  ];
+
   return (
     <section id="skills" className="section bg-white dark:bg-dark">
       <div className="container">
@@ -63,6 +84,7 @@ const Skills = () => {
           className="text-center mb-16"
         >
           <h2 className="section-title">Skills & Expertise</h2>
+          <p className="section-subtitle">My technical skills and areas of expertise</p>
         </motion.div>
 
         {/* Skill Categories */}
@@ -75,7 +97,7 @@ const Skills = () => {
           {skillCategories.map((category) => (
             <motion.button
               key={category.id}
-              whileHover={{ y: -2 }}
+              whileHover={{ y: -2, scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setActiveCategory(category.id)}
               className={`pill ${activeCategory === category.id ? 'pill--active' : ''}`}
@@ -101,19 +123,19 @@ const Skills = () => {
                 initial={{ opacity: 0, x: -30 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                className="space-y-2"
+                className="skill-item"
               >
-                <div className="flex justify-between items-center">
-                  <h4 className="font-semibold text-lg">{skill.name}</h4>
-                  <span className="text-sm font-medium text-primary">{skill.level}%</span>
+                <div className="skill-header">
+                  <h4 className="skill-name">{skill.name}</h4>
+                  <span className="skill-percentage">{skill.level}%</span>
                 </div>
-                <div className="w-full bg-light dark:bg-dark-light rounded-full h-3 overflow-hidden">
+                <div className="skill-bar-container">
                   <motion.div
-                    className="h-full rounded-full"
+                    className="skill-bar-fill"
                     style={{ backgroundColor: skill.color }}
                     initial={{ width: 0 }}
                     animate={inView ? { width: `${skill.level}%` } : {}}
-                    transition={{ duration: 1, delay: 0.6 + index * 0.1 }}
+                    transition={{ duration: 1.2, delay: 0.6 + index * 0.1, ease: "easeOut" }}
                   />
                 </div>
               </motion.div>
@@ -127,7 +149,7 @@ const Skills = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="space-y-8"
           >
-            <div className="card">
+            <div className="card skill-narrative">
               <h3 className="text-xl font-bold mb-4">What I work with</h3>
               <p className="lead">
                 I build modern, responsive web apps with a focus on usability and performance.
@@ -140,61 +162,50 @@ const Skills = () => {
           </motion.div>
         </motion.div>
 
+        {/* What I Do Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="mt-20"
+        >
+          <h2 className="text-2xl font-bold mb-12 text-center section-title">
+            What I Do Best
+          </h2>
 
-  <h2 className="text-2xl font-bold mb-16 text-center">
-    What I Do Best
-  </h2>
-
-
-          <div className="grid grid-3 gap-6">
-            {[
-              {
-                title: 'Web Development',
-                description: 'Building responsive and modern web applications using the latest technologies.',
-                icon: '🌐'
-              },
-              {
-                title: 'UI/UX Design',
-                description: 'Creating intuitive and beautiful user interfaces with focus on user experience.',
-                icon: '🎨'
-              },
-              {
-                title: 'Problem Solving',
-                description: 'Analyzing complex problems and developing efficient, scalable solutions.',
-                icon: '💡'
-              }
-            ].map((skill, index) => (
+          <div className="grid grid-3 gap-8">
+            {whatIDoItems.map((item, index) => (
               <motion.div
-                key={skill.title}
+                key={item.title}
                 initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.9 + index * 0.1 }}
-                className="card text-center"
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="what-i-do-card"
               >
-                <div className="text-4xl mb-4">{skill.icon}</div>
-                <h4 className="font-bold text-lg mb-3">{skill.title}</h4>
-                <p className="text-text-muted">{skill.description}</p>
+                <div className="what-i-do-icon" style={{ backgroundColor: item.color + '20' }}>
+                  <item.icon size={32} style={{ color: item.color }} />
+                </div>
+                <h4 className="what-i-do-title">{item.title}</h4>
+                <p className="what-i-do-description">{item.description}</p>
               </motion.div>
             ))}
           </div>
+        </motion.div>
 
         {/* Call to Action */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
           className="text-center mt-16"
         >
-
-
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="btn btn-primary"
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
           >
-
-
             See My Work in Action
           </motion.button>
         </motion.div>

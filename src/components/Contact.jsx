@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, Instagram, CheckCircle, AlertCircle } from 'lucide-react';
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const [ref, inView] = useInView({
@@ -18,7 +19,14 @@ const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [errors, setErrors] = useState({});
+
+  // Initialize EmailJS with environment variables or fallback
+  useEffect(() => {
+    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
+    emailjs.init(publicKey);
+  }, []);
 
   const socialLinks = [
     { icon: Github, href: 'https://github.com/Bekalu-Temesgen2306', label: 'GitHub' },
@@ -83,18 +91,55 @@ const Contact = () => {
     }
 
     setIsSubmitting(true);
+    setSubmitError('');
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
+    try {
+      // EmailJS template parameters
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_email: 'bekalutemesgen74@gmail.com',
+        reply_to: formData.email,
+        timestamp: new Date().toLocaleString()
+      };
+
+      // Get EmailJS credentials from environment variables or use placeholders
+      const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
+      const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
+
+      // Check if EmailJS is properly configured
+      if (serviceId === 'YOUR_SERVICE_ID' || templateId === 'YOUR_TEMPLATE_ID') {
+        throw new Error('EmailJS not configured. Please check EMAIL_SETUP.md for instructions.');
+      }
+
+      // Send email using EmailJS
+      const response = await emailjs.send(serviceId, templateId, templateParams);
+
+      if (response.status === 200) {
+        setIsSubmitted(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        
+        // Reset success message after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+        }, 5000);
+      }
+    } catch (error) {
+      console.error('Email send error:', error);
       
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 5000);
-    }, 2000);
+      // Provide helpful error messages
+      if (error.message.includes('not configured')) {
+        setSubmitError('Email service not configured. Please contact me directly at bekalutemesgen74@gmail.com');
+      } else if (error.message.includes('Service not found')) {
+        setSubmitError('Email service configuration error. Please contact me directly.');
+      } else {
+        setSubmitError('Failed to send message. Please try again or contact me directly via email.');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -167,43 +212,24 @@ const Contact = () => {
             {/* Social Links */}
             <div>
               <h4 className="text-lg font-semibold mb-4">Follow Me On: </h4>
-              <div className="flex gap-6">
+              <div className="flex gap-4">
                 {socialLinks.map((social, index) => (
                   <motion.a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={inView ? { opacity: 1, scale: 1 } : {}}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                    whileHover={{ scale: 1.15, y: -3, rotate: 5 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="w-14 h-14 bg-light dark:bg-dark-light rounded-full flex items-center justify-center text-text hover:bg-primary hover:text-white hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 border-2 border-transparent hover:border-primary/20"
-                    aria-label={social.label}
+                    whileHover={{ y: -3, scale: 1.1 }}
+                    className="social-link"
                   >
-                    <social.icon size={26} />
+                    <social.icon size={24} />
                   </motion.a>
                 ))}
               </div>
             </div>
-
-            {/* Availability Status */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              className="card"
-            >
-              <h4 className="font-semibold mb-3">Current Status</h4>
-              <div className="flex items-center gap-3">
-                <div className="status-dot animate-pulse"></div>
-                <span className="text-text-muted">Available for new projects</span>
-              </div>
-              <p className="text-sm text-text-muted mt-2">
-                Response time: Usually within 24 hours
-              </p>
-            </motion.div>
           </motion.div>
 
           {/* Contact Form */}
@@ -211,60 +237,77 @@ const Contact = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="card card--elevated card--form"
+            className="card"
           >
             <h3 className="text-2xl font-bold mb-6">Send Message</h3>
             
+            {/* Success Message */}
             {isSubmitted && (
               <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="mb-6 p-4 bg-secondary text-white rounded-lg"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="success-message mb-6"
               >
-                <p className="font-medium">Thank you for your message!</p>
-                <p className="text-sm">I'll get back to you as soon as possible.</p>
+                <div className="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+                  <CheckCircle size={24} className="text-green-600 dark:text-green-400" />
+                  <div>
+                    <h4 className="font-semibold text-green-800 dark:text-green-200">Message Sent Successfully!</h4>
+                    <p className="text-green-700 dark:text-green-300 text-sm">Thank you for reaching out. I'll get back to you soon!</p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Error Message */}
+            {submitError && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="error-message mb-6"
+              >
+                <div className="flex items-center gap-3 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                  <AlertCircle size={24} className="text-red-600 dark:text-red-400" />
+                  <div>
+                    <h4 className="font-semibold text-red-800 dark:text-red-200">Message Failed to Send</h4>
+                    <p className="text-red-700 dark:text-red-300 text-sm">{submitError}</p>
+                  </div>
+                </div>
               </motion.div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Name *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 ${
-                    errors.name ? 'border-red-500' : 'border-border'
-                  }`}
-                  placeholder="Your name"
-                />
-                {errors.name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-                )}
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 ${
-                    errors.email ? 'border-red-500' : 'border-border'
-                  }`}
-                  placeholder="your.email@example.com"
-                />
-                {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                )}
+              <div className="grid grid-2 gap-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium mb-2">
+                    Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className={`form-input ${errors.name ? 'error' : ''}`}
+                    placeholder="Your name"
+                  />
+                  {errors.name && <span className="error-text">{errors.name}</span>}
+                </div>
+                
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={`form-input ${errors.email ? 'error' : ''}`}
+                    placeholder="your.email@example.com"
+                  />
+                  {errors.email && <span className="error-text">{errors.email}</span>}
+                </div>
               </div>
 
               <div>
@@ -277,14 +320,10 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 ${
-                    errors.subject ? 'border-red-500' : 'border-border'
-                  }`}
+                  className={`form-input ${errors.subject ? 'error' : ''}`}
                   placeholder="What's this about?"
                 />
-                {errors.subject && (
-                  <p className="text-red-500 text-sm mt-1">{errors.subject}</p>
-                )}
+                {errors.subject && <span className="error-text">{errors.subject}</span>}
               </div>
 
               <div>
@@ -296,15 +335,11 @@ const Contact = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  rows={5}
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 resize-none ${
-                    errors.message ? 'border-red-500' : 'border-border'
-                  }`}
-                  placeholder="Tell me about your project..."
+                  rows={6}
+                  className={`form-textarea ${errors.message ? 'error' : ''}`}
+                  placeholder="Tell me about your project or question..."
                 />
-                {errors.message && (
-                  <p className="text-red-500 text-sm mt-1">{errors.message}</p>
-                )}
+                {errors.message && <span className="error-text">{errors.message}</span>}
               </div>
 
               <motion.button
@@ -312,18 +347,18 @@ const Contact = () => {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full btn btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn btn-primary w-full"
               >
                 {isSubmitting ? (
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="loading"></div>
+                  <>
+                    <div className="spinner"></div>
                     Sending...
-                  </div>
+                  </>
                 ) : (
-                  <div className="flex items-center justify-center gap-2">
+                  <>
                     <Send size={20} />
                     Send Message
-                  </div>
+                  </>
                 )}
               </motion.button>
             </form>

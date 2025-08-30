@@ -59,9 +59,18 @@ const Header = () => {
     >
       <div className="container">
         <div className="header__inner">
-          {/* Logo */}
+          {/* Logo with Profile Photo */}
           <motion.div whileHover={{ scale: 1.05 }} className="header__logo">
-            <Link to="/"style={{ textDecoration: 'none' }}>Bekalu Temesgen</Link>
+            <Link to="/" className="logo-link">
+              <div className="profile-photo">
+                <img 
+                  src="/images/bekalu.jpg" 
+                  alt="Bekalu Temesgen" 
+                  className="profile-photo__img"
+                />
+              </div>
+              <span className="logo-text">Bekalu Temesgen</span>
+            </Link>
           </motion.div>
 
           {/* Desktop Navigation */}
