@@ -76,12 +76,13 @@ const Projects = () => {
       id: 5,
       title: 'Portfolio Website',
       description: 'A modern, responsive portfolio website built with React and Framer Motion for smooth animations.',
-      image: '/images/projects/portfolio.jpg',
-      placeholder: true,
+      image: '/images/projects/portfolioImage.png',
+
+      placeholder: false,
       category: 'web',
       technologies: ['React', 'TypeScript', 'Framer Motion', 'Tailwind CSS'],
-      liveUrl: 'https://bekalu-portfolio.com',
-      githubUrl: 'https://github.com/bekalu/portfolio',
+      liveUrl: 'https://bekalu-temesgen-portfolio.vercel.app',
+      githubUrl: 'https://github.com/bekalu-temesgen-2306/my-portfolio',
       features: ['Smooth Animations', 'Dark Mode', 'Responsive Design', 'SEO Optimized'],
       status: 'completed'
     },
@@ -150,7 +151,7 @@ const Projects = () => {
 
         {/* Projects Grid */}
         <AnimatePresence mode="wait">
-          <motion.div
+          <motion.div 
             key={activeFilter}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -176,11 +177,14 @@ const Projects = () => {
                       <p className="placeholder-subtext">Coming Soon</p>
                     </div>
                   ) : (
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="project-image"
-                    />
+                    <div className="project-image-container w-full h-64 overflow-hidden rounded-lg">
+  <img 
+    src={project.image} 
+    alt={project.title}
+    className="w-full h-full object-cover"
+  />
+</div>
+
                   )}
                   
                   {project.status === 'in-progress' && (

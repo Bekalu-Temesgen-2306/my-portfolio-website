@@ -40,7 +40,7 @@ const Hero = () => {
   }, [currentText, isDeleting, currentTextIndex, texts]);
 
   const socialLinks = [
-    { icon: Github, href: 'https://github.com/Bekalu-Temesgen2306', label: 'GitHub' },
+    { icon: Github, href: 'https://github.com/Bekalu-Temesgen-2306', label: 'GitHub' },
     { icon: Linkedin, href: 'https://linkedin.com/in/Bekalu-Temesgen2306', label: 'LinkedIn' },
     { icon: Mail, href: 'mailto:bekalutemesgen74@gmail.com', label: 'Email' },
   ];
@@ -63,7 +63,7 @@ const Hero = () => {
                 transition={{ delay: 0.2, duration: 0.8 }}
                 className="hero__title"
               >
-                <span className="text-gradient"> hi, Its Me </span>
+                <span className="text-gradient"> hi, I"m bekalu</span>
               </motion.h1>
               
               <motion.div

@@ -29,7 +29,7 @@ const Contact = () => {
   }, []);
 
   const socialLinks = [
-    { icon: Github, href: 'https://github.com/Bekalu-Temesgen2306', label: 'GitHub' },
+    { icon: Github, href: 'https://github.com/Bekalu-Temesgen-2306', label: 'GitHub' },
     { icon: Linkedin, href: 'https://linkedin.com/in/Bekalu-Temesgen2306', label: 'LinkedIn' },
     { icon: Twitter, href: 'https://twitter.com/bekalu_tem2123', label: 'Twitter' },
     { icon: Instagram, href: 'https://instagram.com/bekalu_tom', label: 'Instagram' },

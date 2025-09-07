@@ -17,7 +17,7 @@ const Achievements = () => {
       date: '2023',
       description: 'Completed a 2-month intensive course in web programming fundamentals, covering HTML, CSS, JavaScript, and modern web development practices.',
       icon: FileText,
-      image: '/images/UdacityCerteficate.jpg',
+      image: '/images/udacity.jpg',
       category: 'certification',
       skills: ['HTML', 'CSS', 'JavaScript', 'Web Development']
     },
@@ -28,7 +28,7 @@ const Achievements = () => {
       date: '2022',
       description: 'Successfully completed SSS training program, demonstrating commitment to professional development and skill enhancement.',
       icon: Trophy,
-      image: null,
+      image: '/images/sss_certeficate.jpg',
       category: 'training',
       skills: ['Professional Development', 'Leadership', 'Teamwork']
     },
@@ -127,18 +127,19 @@ const Achievements = () => {
 
                   {/* Action Button */}
                   <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="btn btn-secondary text-sm mt-4"
-                    onClick={() => {
-                      if (achievement.image) {
-                        window.open("/images/udacity.jpg", '_blank');
-                      }
-                    }}
-                  >
-                    <ExternalLink size={16} />
-                    View Certificate
-                  </motion.button>
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  className="btn btn-secondary text-sm mt-4"
+  onClick={() => {
+    if (achievement.image) {
+      window.open(achievement.image, "_blank"); // <- dynamic image
+    }
+  }}
+>
+  <ExternalLink size={16} />
+  View Certificate
+</motion.button>
+
                 </div>
               </div>
             </motion.div>
