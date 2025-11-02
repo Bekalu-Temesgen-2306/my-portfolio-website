@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Download, ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
+import jsPDF from 'jspdf';
 
 const Hero = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -44,6 +45,283 @@ const Hero = () => {
     { icon: Linkedin, href: 'https://linkedin.com/in/Bekalu-Temesgen2306', label: 'LinkedIn' },
     { icon: Mail, href: 'mailto:bekalutemesgen74@gmail.com', label: 'Email' },
   ];
+
+  const handleDownloadCV = () => {
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
+
+    // Colors
+    const primaryColor = [0, 123, 255];
+    const textColor = [51, 51, 51];
+    const lightGray = [200, 200, 200];
+    const darkGray = [102, 102, 102];
+
+    // Header Section
+    doc.setFillColor(...primaryColor);
+    doc.rect(0, 0, 210, 40, 'F');
+    
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(28);
+    doc.setFont('helvetica', 'bold');
+    doc.text('BEKALU TEMESGEN', 105, 18, { align: 'center' });
+    
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Front-End Developer | UX/UI Designer', 105, 26, { align: 'center' });
+    
+    doc.setFontSize(9);
+    doc.text('Email: bekalutemesgen74@gmail.com | GitHub: github.com/Bekalu-Temesgen-2306', 105, 32, { align: 'center' });
+    doc.text('LinkedIn: linkedin.com/in/Bekalu-Temesgen2306', 105, 37, { align: 'center' });
+
+    let yPosition = 50;
+
+    // Professional Summary
+    doc.setTextColor(...textColor);
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('PROFESSIONAL SUMMARY', 15, yPosition);
+    
+    doc.setDrawColor(...lightGray);
+    doc.line(15, yPosition + 2, 195, yPosition + 2);
+    
+    yPosition += 8;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    const summary = [
+      'Passionate Front-End Developer dedicated to creating user-friendly, accessible, and visually',
+      'appealing digital experiences. Specialized in building responsive web applications using',
+      'modern technologies including React, TypeScript, and Node.js. Strong problem-solving skills',
+      'with experience in UI/UX design and full-stack development. Continuously learning and',
+      'adapting to emerging technologies to deliver high-quality, efficient solutions.'
+    ];
+    
+    summary.forEach(line => {
+      doc.text(line, 15, yPosition);
+      yPosition += 5;
+    });
+    
+    yPosition += 5;
+
+    // Technical Skills
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('TECHNICAL SKILLS', 15, yPosition);
+    doc.line(15, yPosition + 2, 195, yPosition + 2);
+    
+    yPosition += 8;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    
+    const skills = {
+      'Frontend': 'HTML, CSS, JavaScript, React, TypeScript, Next.js',
+      'Backend': 'Node.js, Express.js, MongoDB, PostgreSQL, Firebase',
+      'Design': 'UI/UX Design, Figma, Adobe XD, Photoshop, Illustrator',
+      'Tools': 'Git & GitHub, VS Code, Docker, AWS, Vercel'
+    };
+    
+    Object.entries(skills).forEach(([category, techs]) => {
+      doc.setFont('helvetica', 'bold');
+      doc.text(`${category}:`, 15, yPosition);
+      doc.setFont('helvetica', 'normal');
+      doc.text(techs, 45, yPosition);
+      yPosition += 6;
+    });
+    
+    yPosition += 5;
+
+    // Professional Experience
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('PROFESSIONAL EXPERIENCE', 15, yPosition);
+    doc.line(15, yPosition + 2, 195, yPosition + 2);
+    
+    yPosition += 8;
+    
+    const experiences = [
+      {
+        title: 'Front-End Developer Intern',
+        company: 'Alyah Software Development Plc.',
+        period: 'June 2025 - August 2025',
+        achievements: [
+          'Developed responsive web applications using React and modern JavaScript',
+          'Collaborated with team members to implement UI/UX designs',
+          'Participated in code reviews and maintained clean, maintainable code',
+          'Assisted in debugging and optimizing application performance'
+        ]
+      }
+    ];
+    
+    experiences.forEach(exp => {
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.text(exp.title, 15, yPosition);
+      
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...darkGray);
+      doc.text(`${exp.company} | ${exp.period}`, 15, yPosition + 5);
+      
+      doc.setTextColor(...textColor);
+      yPosition += 10;
+      
+      exp.achievements.forEach(achievement => {
+        doc.text('•', 18, yPosition);
+        doc.text(achievement, 22, yPosition);
+        yPosition += 5;
+        if (yPosition > 270) {
+          doc.addPage();
+          yPosition = 20;
+        }
+      });
+      
+      yPosition += 3;
+    });
+
+    // Projects
+    if (yPosition > 250) {
+      doc.addPage();
+      yPosition = 20;
+    }
+    
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('KEY PROJECTS', 15, yPosition);
+    doc.line(15, yPosition + 2, 195, yPosition + 2);
+    
+    yPosition += 8;
+    
+    const projects = [
+      {
+        name: 'Hotel Website',
+        tech: 'React.js, Node.js, MySQL, Tailwind CSS',
+        desc: 'Full-stack hotel booking application with traditional ceremony features and historical place visits'
+      },
+      {
+        name: 'EthioTour Website',
+        tech: 'React, Node.js, MongoDB, Express',
+        desc: 'Tourism platform showcasing Ethiopian destinations with booking system and interactive maps'
+      },
+      {
+        name: 'Portfolio Website',
+        tech: 'React, TypeScript, Framer Motion',
+        desc: 'Modern, responsive portfolio with smooth animations, dark mode, and SEO optimization'
+      },
+      {
+        name: 'E-Commerce Platform',
+        tech: 'Next.js, TypeScript, Stripe, PostgreSQL',
+        desc: 'Complete e-commerce solution with payment processing and user authentication'
+      }
+    ];
+    
+    projects.forEach(project => {
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.text(project.name, 15, yPosition);
+      
+      doc.setFont('helvetica', 'italic');
+      doc.setTextColor(...darkGray);
+      doc.setFontSize(9);
+      doc.text(`Technologies: ${project.tech}`, 15, yPosition + 5);
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...textColor);
+      doc.setFontSize(9);
+      const descLines = doc.splitTextToSize(project.desc, 180);
+      doc.text(descLines, 15, yPosition + 10);
+      
+      yPosition += 10 + (descLines.length * 4) + 3;
+      
+      if (yPosition > 270) {
+        doc.addPage();
+        yPosition = 20;
+      }
+    });
+
+    // Education
+    if (yPosition > 250) {
+      doc.addPage();
+      yPosition = 20;
+    }
+    
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('EDUCATION', 15, yPosition);
+    doc.line(15, yPosition + 2, 195, yPosition + 2);
+    
+    yPosition += 8;
+    
+    const education = [
+      {
+        degree: 'Bachelor of Science in Computer Science',
+        institution: 'Bahir Dar University',
+        period: '2023 - Present',
+        focus: 'Focus on Web Development & UX/UI Design'
+      }
+    ];
+    
+    education.forEach(edu => {
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.text(edu.degree, 15, yPosition);
+      
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...darkGray);
+      doc.text(`${edu.institution} | ${edu.period}`, 15, yPosition + 5);
+      
+      doc.setTextColor(...textColor);
+      doc.text(edu.focus, 15, yPosition + 10);
+      
+      yPosition += 15;
+    });
+
+    // Certifications
+    if (yPosition > 250) {
+      doc.addPage();
+      yPosition = 20;
+    }
+    
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('CERTIFICATIONS & TRAINING', 15, yPosition);
+    doc.line(15, yPosition + 2, 195, yPosition + 2);
+    
+    yPosition += 8;
+    
+    const certifications = [
+      { name: 'Web Programming Certificate', issuer: 'Udacity', year: '2023' },
+      { name: 'SSS Training Certification', issuer: 'Bahir Dar University', year: '2022' }
+    ];
+    
+    certifications.forEach(cert => {
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.text(cert.name, 15, yPosition);
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...darkGray);
+      doc.text(`${cert.issuer} - ${cert.year}`, 15, yPosition + 5);
+      
+      doc.setTextColor(...textColor);
+      yPosition += 10;
+    });
+
+    // Footer
+    const pageCount = doc.internal.pages.length - 1;
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.setTextColor(...darkGray);
+      doc.text(`Page ${i} of ${pageCount}`, 105, 287, { align: 'center' });
+      doc.text('Bekalu Temesgen - Resume', 105, 290, { align: 'center' });
+    }
+
+    // Save the PDF
+    doc.save('Bekalu_Temesgen_Resume.pdf');
+  };
 
   return (
     <section id="hero" className="hero-section">
@@ -145,7 +423,7 @@ const Hero = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="btn btn-secondary"
-                onClick={() => window.open('/resume.pdf', '_blank')}
+                onClick={handleDownloadCV}
               >
                 <Download size={15} />
                 Download CV
