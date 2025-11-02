@@ -46,7 +46,7 @@ const Hero = () => {
     { icon: Mail, href: 'mailto:bekalutemesgen74@gmail.com', label: 'Email' },
   ];
 
-  const handleDownloadCV = () => {
+  const handleDownloadCV = async () => {
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
@@ -59,23 +59,74 @@ const Hero = () => {
     const lightGray = [200, 200, 200];
     const darkGray = [102, 102, 102];
 
-    
-    // Header Section
+    // Header Section background first
     doc.setFillColor(...primaryColor);
     doc.rect(0, 0, 210, 40, 'F');
+    
+    // Load and add profile image
+    let imgData = null;
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = '/images/bekalu.jpg';
+    
+    await new Promise((resolve) => {
+      img.onload = () => {
+        try {
+          // Convert image to canvas for better PDF compatibility
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          
+          // Create circular clipping
+          ctx.beginPath();
+          ctx.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width, canvas.height) / 2, 0, Math.PI * 2);
+          ctx.clip();
+          ctx.drawImage(img, 0, 0);
+          
+          // Convert canvas to data URL
+          imgData = canvas.toDataURL('image/jpeg', 0.9);
+          
+          // Add profile image at the header (right side, on top of header background)
+          const imgSize = 32; // Size in mm
+          const imgX = 210 - 25; // Right side with margin
+          const imgY = 8; // Top position
+          
+          // Draw white circle background for border effect
+          const centerX = imgX + imgSize / 2;
+          const centerY = imgY + imgSize / 2;
+          const radius = imgSize / 2;
+          doc.setFillColor(255, 255, 255);
+          doc.circle(centerX, centerY, radius + 2, 'F');
+          
+          // Add circular image
+          doc.addImage(imgData, 'JPEG', imgX, imgY, imgSize, imgSize, undefined, 'FAST');
+          
+          resolve();
+        } catch (error) {
+          console.error('Error adding image:', error);
+          resolve(); // Continue even if image fails
+        }
+      };
+      img.onerror = () => {
+        console.warn('Failed to load profile image');
+        resolve(); // Continue without image
+      };
+    });
     
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(28);
     doc.setFont('helvetica', 'bold');
-    doc.text('BEKALU TEMESGEN', 105, 18, { align: 'center' });
+    // Adjust text position to leave space for image on right
+    doc.text('BEKALU TEMESGEN', 105, 18, { align: 'center', maxWidth: 150 });
     
     doc.setFontSize(12);
     doc.setFont('helvetica', 'normal');
-    doc.text('Front-End Developer | UX/UI Designer', 105, 26, { align: 'center' });
+    doc.text('Front-End Developer | UX/UI Designer', 105, 26, { align: 'center', maxWidth: 150 });
     
     doc.setFontSize(9);
-    doc.text('Email: bekalutemesgen74@gmail.com | GitHub: github.com/Bekalu-Temesgen-2306', 105, 32, { align: 'center' });
-    doc.text('LinkedIn: linkedin.com/in/Bekalu-Temesgen2306', 105, 37, { align: 'center' });
+    doc.text('Email: bekalutemesgen74@gmail.com | GitHub: github.com/Bekalu-Temesgen-2306', 105, 32, { align: 'center', maxWidth: 170 });
+    doc.text('LinkedIn: linkedin.com/in/Bekalu-Temesgen2306', 105, 37, { align: 'center', maxWidth: 170 });
 
     let yPosition = 50;
 
@@ -342,7 +393,7 @@ const Hero = () => {
                 transition={{ delay: 0.2, duration: 0.8 }}
                 className="hero__title"
               >
-                <span className="text-gradient"> hi, I'm bekalu </span>
+                <span className="text-gradient"> hi, I'm Bekalu  Temsgen</span>
               </motion.h1>
               
               <motion.div

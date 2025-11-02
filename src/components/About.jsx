@@ -21,11 +21,11 @@ const About = () => {
 
 
     {
-      year: "2023",
+      year: "2024",
       text: "Web Programming Certificate, Udacity",
     },
     {
-      year: "2022",
+      year: "2023",
       text: "SSS Training Certification, Bahir Dar University",
     },
     {
@@ -46,18 +46,18 @@ const About = () => {
           className="text-center mb-16"
         >
           <h2 className="section-title">About Me</h2>
-          <p className="text-lg text-text-muted max-w-3xl mx-auto">
-I’m Bekalu Temesgen, a Front-End Developer dedicated to creating user-friendly, accessible, 
-and visually appealing digital experiences. I enjoy turning ideas into functional interfaces
-that offer real value and smooth user interaction.
-I constantly learn and grow by exploring documentation, online resources, and hands-on practice.
-My learning approach is continuous and self-driven — always adapting to new tools, frameworks, and 
-emerging technologies.What I’m passionate about:Crafting responsive and intuitive user 
-interfaces,Writing clean, maintainable, and efficient code Solving real-world problems through thoughtful design and development
-I have worked on a range of projects that address 
-practical needs, which has helped me build confidence and strong problem-solving skills. 
-I’m always open to collaboration and opportunities to build meaningful digital solutions.
-          </p>
+          <div className="text-lg text-text-muted max-w-3xl mx-auto space-y-4 text-left">
+            <p>
+              I'm Bekalu Temesgen, a Front-End Developer dedicated to creating user-friendly, accessible, 
+              and visually appealing digital experiences. I enjoy turning ideas into functional interfaces
+              that offer real value and smooth user interaction.
+            </p>
+            <p>
+              I have worked on a range of projects that address 
+              practical needs, which has helped me build confidence and strong problem-solving skills. 
+              I'm always open to collaboration and opportunities to build meaningful digital solutions.
+            </p>
+          </div>
         </motion.div>
 
         {/* Timeline (Compact Resume Style) */}

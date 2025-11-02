@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Code, Palette, Database, Cloud, Zap, Target, Users } from 'lucide-react';
+import { Code, Palette, Database, Cloud, Zap  } from 'lucide-react';
 
 const Skills = () => {
   const [ref, inView] = useInView({

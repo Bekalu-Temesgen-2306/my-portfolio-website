@@ -43,7 +43,7 @@ const Projects = () => {
       category: 'web',
       technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
       liveUrl: 'null',
-      githubUrl: 'https://github.com/bekalu-temesgen-2306/my-portfolio-website',
+      githubUrl: 'null',
       features: ['Responsive Design', 'Booking System', 'Interactive Maps', 'Admin Dashboard'],
       status: 'completed'
     },

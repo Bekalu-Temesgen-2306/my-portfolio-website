@@ -285,10 +285,32 @@ p {
 .text-text-muted { color: var(--text-muted); }
 .text-text { color: var(--text); }
 .text-sm { font-size: 0.875rem; }
-.text-lg { font-size: 1.125rem; }
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-lg { font-size: 1.125rem; line-height: 1.7; }
 .text-xl { font-size: 1.25rem; }
 .text-2xl { font-size: 1.5rem; }
 .text-3xl { font-size: 1.875rem; }
+
+/* List and spacing utilities */
+.space-y-2 > * + * { margin-top: 0.5rem; }
+.space-y-4 > * + * { margin-top: 1rem; }
+.space-y-6 > * + * { margin-top: 1.5rem; }
+.space-y-8 > * + * { margin-top: 2rem; }
+
+.list-disc { list-style-type: disc; }
+.list-inside { list-style-position: inside; }
+
+ul.list-disc {
+  margin-left: 1rem;
+  padding-left: 1rem;
+}
+
+ul.list-disc li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
 .text-4xl { font-size: 2.25rem; }
 
 .aspect-video { aspect-ratio: 16 / 9; }
@@ -615,8 +637,9 @@ p {
 /* Hero                           */
 /* ------------------------------ */
 .hero__title {
-  font-size: clamp(2.7rem, 6vw, 4.2rem);
-  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 .text-gradient {
@@ -859,7 +882,7 @@ p {
   }
 
   /* Reduce visual density on mobile */
-  .hero__title { font-size: clamp(2.2rem, 8vw, 3rem); }
+  .hero__title { font-size: clamp(1.6rem, 6vw, 2.2rem); }
   .avatar-img { width: 12rem; height: 12rem; }
   .icon-circle { width: 40px; height: 40px; }
   .timeline-marker { left: -9px; width: 8px; height: 8px; }
