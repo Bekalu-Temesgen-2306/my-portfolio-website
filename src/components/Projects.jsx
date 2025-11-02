@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Github, Eye, Code, Palette, Database, Image } from 'lucide-react';
+import { Github, Eye, Code, Palette, Database } from 'lucide-react';
 
 const Projects = () => {
   const [ref, inView] = useInView({
@@ -20,60 +20,51 @@ const Projects = () => {
   ];
 
   const projects = [
+
     {
       id: 1,
+      title: ' Hotel Website ',
+      description: 'A beautiful hotel application with  better booking functionality and tradational cermoney.',
+      image: '/images/projects/weather.jpg',
+      placeholder: true,
+      category: 'fullstack',
+      technologies: [' React.js', 'Node js ', 'mySql', 'tailwind CSS'],
+       liveUrl: 'null',
+       githubUrl: 'https://github.com/bekalu-temesgen-2306/hotel-website',
+      features: ['booking functionality', 'coffee cermony ', ' enables visit historical place', 'Responsive Design'],
+      status: 'completed'
+    },
+    {
+      id: 2,
       title: 'EthioTour Website',
       description: 'A comprehensive tourism website showcasing Ethiopian destinations with booking functionality, interactive maps, and cultural information.',
       image: '/images/projects/ethiotour.jpg',
       placeholder: true,
       category: 'web',
       technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
-      liveUrl: 'https://ethiotour.com',
-      githubUrl: 'https://github.com/bekalu/ethiotour',
+      liveUrl: 'null',
+      githubUrl: 'https://github.com/bekalu-temesgen-2306/my-portfolio-website',
       features: ['Responsive Design', 'Booking System', 'Interactive Maps', 'Admin Dashboard'],
       status: 'completed'
     },
     {
-      id: 2,
+      id: 3,
       title: 'E-Commerce Platform',
       description: 'A modern e-commerce platform with payment integration, user authentication, and inventory management.',
       image: '/images/projects/ecommerce.jpg',
       placeholder: true,
       category: 'fullstack',
       technologies: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL'],
-      liveUrl: 'https://ecommerce-demo.com',
-      githubUrl: 'https://github.com/bekalu/ecommerce',
+      liveUrl: 'null',
+       githubUrl: 'null',
       features: ['Payment Processing', 'User Authentication', 'Admin Panel', 'Real-time Updates'],
       status: 'completed'
     },
-    {
-      id: 3,
-      title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates, team collaboration, and progress tracking.',
-      image: '/images/projects/taskapp.jpg',
-      placeholder: true,
-      category: 'web',
-      technologies: ['React', 'Firebase', 'Material-UI', 'Redux'],
-      liveUrl: 'https://taskapp-demo.com',
-      githubUrl: 'https://github.com/bekalu/taskapp',
-      features: ['Real-time Collaboration', 'Drag & Drop', 'Progress Tracking', 'Team Management'],
-      status: 'completed'
-    },
+    
+     
+    
     {
       id: 4,
-      title: 'Weather Dashboard',
-      description: 'A beautiful weather application with location-based forecasts, interactive charts, and weather alerts.',
-      image: '/images/projects/weather.jpg',
-      placeholder: true,
-      category: 'web',
-      technologies: ['JavaScript', 'OpenWeather API', 'Chart.js', 'CSS3'],
-      liveUrl: 'https://weather-dashboard.com',
-      githubUrl: 'https://github.com/bekalu/weather-app',
-      features: ['Location Detection', 'Interactive Charts', 'Weather Alerts', 'Responsive Design'],
-      status: 'completed'
-    },
-    {
-      id: 5,
       title: 'Portfolio Website',
       description: 'A modern, responsive portfolio website built with React and Framer Motion for smooth animations.',
       image: '/images/projects/portfolioImage.png',
@@ -82,12 +73,12 @@ const Projects = () => {
       category: 'web',
       technologies: ['React', 'TypeScript', 'Framer Motion', 'Tailwind CSS'],
       liveUrl: 'https://bekalu-temesgen-portfolio.vercel.app',
-      githubUrl: 'https://github.com/bekalu-temesgen-2306/my-portfolio',
+      githubUrl: 'https://github.com/bekalu-temesgen-2306/my-portfolio-website',
       features: ['Smooth Animations', 'Dark Mode', 'Responsive Design', 'SEO Optimized'],
       status: 'completed'
     },
     {
-      id: 6,
+      id: 5,
       title: 'Mobile Banking App',
       description: 'A mobile banking application with secure authentication, transaction history, and bill payments.',
       image: '/images/projects/banking.jpg',
@@ -95,7 +86,7 @@ const Projects = () => {
       category: 'mobile',
       technologies: ['React Native', 'Node.js', 'MongoDB', 'JWT'],
       liveUrl: null,
-      githubUrl: 'https://github.com/bekalu/banking-app',
+      // githubUrl: 'https://github.com/bekalu/banking-app',
       features: ['Secure Authentication', 'Transaction History', 'Bill Payments', 'Push Notifications'],
       status: 'in-progress'
     }
@@ -126,7 +117,7 @@ const Projects = () => {
           className="text-center mb-16"
         >
           <h2 className="section-title">Featured Projects</h2>
-          <p className="section-subtitle">Showcasing my best work and technical expertise</p>
+          <p className="section-subtitle">Selected work with live demos</p>
         </motion.div>
 
         {/* Filter Buttons */}
@@ -159,71 +150,58 @@ const Projects = () => {
             transition={{ duration: 0.5 }}
             className="grid grid-3 gap-8"
           >
-            {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="project-card"
-              >
-                {/* Project Image Placeholder */}
-                <div className="project-image-container">
-                  {project.placeholder ? (
-                    <div className="project-image-placeholder">
-                      <Image size={48} className="placeholder-icon" />
-                      <p className="placeholder-text">Project Image</p>
-                      <p className="placeholder-subtext">Coming Soon</p>
-                    </div>
-                  ) : (
-                    <div className="project-image-container w-full h-64 overflow-hidden rounded-lg">
-  <img 
-    src={project.image} 
-    alt={project.title}
-    className="w-full h-full object-cover"
-  />
-</div>
-
-                  )}
-                  
-                  {project.status === 'in-progress' && (
-                    <div className="project-status">
-                      <span className="status-badge">In Progress</span>
-                    </div>
-                  )}
-                </div>
-                
-                {/* Project Content */}
-                <div className="project-content">
+            {filteredProjects.map((project, index) => {
+              const CategoryIcon = getCategoryIcon(project.category);
+              return (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -8 }}
+                  className="project-card project-card--professional"
+                >
+                  {/* Project Header */}
                   <div className="project-header">
-                    <div className="project-category">
-                      {React.createElement(getCategoryIcon(project.category), { size: 18, className: 'category-icon' })}
-                      <span className="category-text">{project.category}</span>
+                    <div className="project-header-top">
+                      <div className="project-category">
+                        <CategoryIcon size={18} className="category-icon" />
+                        <span className="category-text">{project.category === 'web' ? 'Web App' : project.category === 'fullstack' ? 'Full Stack' : project.category === 'mobile' ? 'Mobile App' : 'UI/UX Design'}</span>
+                      </div>
+                      {project.status === 'in-progress' && (
+                        <span className="status-badge status-badge--header">In Progress</span>
+                      )}
                     </div>
+                    <h3 className="project-title">
+                      {project.title}
+                    </h3>
                   </div>
-                  
-                  <h3 className="project-title">
-                    {project.title}
-                  </h3>
-                  
-                  <p className="project-description">
-                    {project.description}
-                  </p>
+
+                  {/* Project Description */}
+                  <div className="project-description">
+                    <p>{project.description}</p>
+                  </div>
 
                   {/* Technologies */}
                   <div className="project-technologies">
-                    {project.technologies.slice(0, 3).map((tech, techIndex) => (
+                    {project.technologies.map((tech, techIndex) => (
                       <span key={techIndex} className="tech-tag">
                         {tech}
                       </span>
                     ))}
-                    {project.technologies.length > 3 && (
-                      <span className="tech-tag more-tag">
-                        +{project.technologies.length - 3} more
-                      </span>
-                    )}
                   </div>
+
+                  {/* Features List */}
+                  {/* <div className="project-features">
+                    <ul>
+                      {project.features.slice(0, 3).map((feature, featureIndex) => (
+                        <li key={featureIndex}>
+                          <span className="feature-icon">✓</span>
+                          <span className="feature-text">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div> */}
 
                   {/* Action Buttons */}
                   <div className="project-actions">
@@ -232,7 +210,7 @@ const Projects = () => {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        whileHover={{ scale: 1.05 }}
+                        whileHover={{ scale: 1.05, y: -2 }}
                         whileTap={{ scale: 0.95 }}
                         className="btn btn-primary btn-sm"
                       >
@@ -244,7 +222,7 @@ const Projects = () => {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                       className="btn btn-secondary btn-sm"
                     >
@@ -252,9 +230,9 @@ const Projects = () => {
                       Code
                     </motion.a>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </motion.div>
         </AnimatePresence>
 

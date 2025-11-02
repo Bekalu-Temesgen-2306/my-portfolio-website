@@ -9,7 +9,7 @@ const Footer = () => {
     { icon: Github, href: 'https://github.com/Bekalu-Temesgen-2306', label: 'GitHub' },
     { icon: Linkedin, href: 'https://linkedin.com/in/Bekalu-Temesgen2306', label: 'LinkedIn' },
     { icon: Twitter, href: 'https://twitter.com/bekalu_tem2123', label: 'Twitter' },
-    { icon: Instagram, href: 'https://instagram.com/bekalu_tom', label: 'Instagram' },
+    { icon: Instagram, href: 'https://instagram.com/bek_dad2306', label: 'Instagram' },
     { icon: Mail, href: 'mailto:bekalutemesgen74@gmail.com', label: 'Email' },
   ];
 
@@ -127,9 +127,7 @@ const Footer = () => {
           <p className="text-text-muted text-sm">
             © {currentYear} Bekalu Temesgen. All rights reserved.
           </p>
-          <p className="text-text-muted text-sm flex items-center gap-1">
-            Made with <Heart size={16} className="text-red-500" /> using React & TypeScript
-          </p>
+        
         </motion.div>
       </div>
     </footer>

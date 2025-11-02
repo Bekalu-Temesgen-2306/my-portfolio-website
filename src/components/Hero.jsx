@@ -63,7 +63,7 @@ const Hero = () => {
                 transition={{ delay: 0.2, duration: 0.8 }}
                 className="hero__title"
               >
-                <span className="text-gradient"> hi, I"m bekalu</span>
+                <span className="text-gradient"> hi, I'm bekalu </span>
               </motion.h1>
               
               <motion.div
@@ -163,7 +163,7 @@ const Hero = () => {
             className="flex justify-center"
           >
             <motion.div
-              whileHover={{ scale: 1.25 }}
+              whileHover={{ scale: 1.05 }}
               className="relative"
             >
               <motion.div

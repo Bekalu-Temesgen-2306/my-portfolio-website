@@ -32,6 +32,22 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    // Prevent body scroll when mobile menu is open
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflowX = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflowX = 'hidden';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflowX = 'hidden';
+    };
+  }, [isMobileMenuOpen]);
+
   const toggleDarkMode = () => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
@@ -69,7 +85,7 @@ const Header = () => {
                   className="profile-photo__img"
                 />
               </div>
-              <span className="logo-text">Bekalu Temesgen</span>
+              <span className="logo-text"> BTkalu Temesg </span>
             </Link>
           </motion.div>
 

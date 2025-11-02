@@ -13,6 +13,13 @@ const About = () => {
       year: "2023 - Present",
       text: "Computer Science Student, Bahir Dar University (focus on: Web Development & UX/UI Design)",
     },
+
+{
+      year: "Jun2025 - Aug2025",
+      text: "Alyah Software Development Plc., Front-End Developer Intern",
+    },
+
+
     {
       year: "2023",
       text: "Web Programming Certificate, Udacity",
@@ -40,14 +47,16 @@ const About = () => {
         >
           <h2 className="section-title">About Me</h2>
           <p className="text-lg text-text-muted max-w-3xl mx-auto">
-            I'm a passionate Computer Science student at Bahir Dar University,
-            specializing in web development and UX design. I’m dedicated to
-            creating accessible and visually appealing digital solutions that
-            solve real-world problems. I’ve built different projects that handle
-            feasible problems, such as the EthioTour website that provides
-            comprehensive information about Ethiopian tourism destinations. My
-            approach combines technical expertise with creative problem-solving
-            to deliver exceptional user experiences.
+I’m Bekalu Temesgen, a Front-End Developer dedicated to creating user-friendly, accessible, 
+and visually appealing digital experiences. I enjoy turning ideas into functional interfaces
+that offer real value and smooth user interaction.
+I constantly learn and grow by exploring documentation, online resources, and hands-on practice.
+My learning approach is continuous and self-driven — always adapting to new tools, frameworks, and 
+emerging technologies.What I’m passionate about:Crafting responsive and intuitive user 
+interfaces,Writing clean, maintainable, and efficient code Solving real-world problems through thoughtful design and development
+I have worked on a range of projects that address 
+practical needs, which has helped me build confidence and strong problem-solving skills. 
+I’m always open to collaboration and opportunities to build meaningful digital solutions.
           </p>
         </motion.div>
 

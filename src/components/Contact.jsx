@@ -22,9 +22,9 @@ const Contact = () => {
   const [submitError, setSubmitError] = useState('');
   const [errors, setErrors] = useState({});
 
-  // Initialize EmailJS with environment variables or fallback
+  // Initialize EmailJS with environment variables or provided fallbacks
   useEffect(() => {
-    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
+    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY || '6sYhEQTUf-hL0qlsT';
     emailjs.init(publicKey);
   }, []);
 
@@ -32,7 +32,7 @@ const Contact = () => {
     { icon: Github, href: 'https://github.com/Bekalu-Temesgen-2306', label: 'GitHub' },
     { icon: Linkedin, href: 'https://linkedin.com/in/Bekalu-Temesgen2306', label: 'LinkedIn' },
     { icon: Twitter, href: 'https://twitter.com/bekalu_tem2123', label: 'Twitter' },
-    { icon: Instagram, href: 'https://instagram.com/bekalu_tom', label: 'Instagram' },
+    { icon: Instagram, href: 'https://instagram.com/bek_dad2306', label: 'Instagram' },
   ];
 
   const contactInfo = [
@@ -105,17 +105,19 @@ const Contact = () => {
         timestamp: new Date().toLocaleString()
       };
 
-      // Get EmailJS credentials from environment variables or use placeholders
-      const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
-      const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
+      // Get EmailJS credentials from environment variables or use provided fallbacks
+      const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID || 'service_2phw778';
+      const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID || 'kAwN8pcWoAyxDBHfVL6mh';
 
-      // Check if EmailJS is properly configured
-      if (serviceId === 'YOUR_SERVICE_ID' || templateId === 'YOUR_TEMPLATE_ID') {
-        throw new Error('EmailJS not configured. Please check EMAIL_SETUP.md for instructions.');
+      // Basic validation to catch common misconfiguration early
+      if (!serviceId || !templateId) {
+        throw new Error('EmailJS configuration invalid. Please set a valid Service ID and Template ID.');
       }
 
       // Send email using EmailJS
-      const response = await emailjs.send(serviceId, templateId, templateParams);
+      // Some environments need the public key passed directly to send()
+      const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY || '6sYhEQTUf-hL0qlsT';
+      const response = await emailjs.send(serviceId, templateId, templateParams, publicKey);
 
       if (response.status === 200) {
         setIsSubmitted(true);
@@ -128,14 +130,22 @@ const Contact = () => {
       }
     } catch (error) {
       console.error('Email send error:', error);
-      
+
+      // Normalize error to a string message safely
+      const errMsg =
+        (typeof error === 'string' && error) ||
+        (error && (error.message || error.text)) ||
+        '';
+
       // Provide helpful error messages
-      if (error.message.includes('not configured')) {
+      if (errMsg && errMsg.includes('not configured')) {
         setSubmitError('Email service not configured. Please contact me directly at bekalutemesgen74@gmail.com');
-      } else if (error.message.includes('Service not found')) {
+      } else if (errMsg && (errMsg.includes('Service not found') || errMsg.includes('service'))) {
         setSubmitError('Email service configuration error. Please contact me directly.');
+      } else if (errMsg && (errMsg.includes('template') || errMsg.includes('Template'))){
+        setSubmitError('Email template not found or invalid. Please contact me directly.');
       } else {
-        setSubmitError('Failed to send message. Please try again or contact me directly via email.');
+        setSubmitError(errMsg ? `Failed to send: ${errMsg}` : 'Failed to send message. Please try again or contact me directly via email.');
       }
     } finally {
       setIsSubmitting(false);
