@@ -59,6 +59,7 @@ const Hero = () => {
     const lightGray = [200, 200, 200];
     const darkGray = [102, 102, 102];
 
+    
     // Header Section
     doc.setFillColor(...primaryColor);
     doc.rect(0, 0, 210, 40, 'F');
