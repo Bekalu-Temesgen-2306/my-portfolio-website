@@ -141,25 +141,6 @@ const Skills = () => {
               </motion.div>
             ))}
           </div>
-
-          {/* Skills Narrative */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="space-y-8"
-          >
-            <div className="card skill-narrative">
-              <h3 className="text-xl font-bold mb-4">What I work with</h3>
-              <p className="lead">
-                I build modern, responsive web apps with a focus on usability and performance.
-                My daily toolkit includes HTML, CSS, JavaScript, React and TypeScript on the frontend,
-                with Node.js, Express and databases like MongoDB or PostgreSQL when needed. I enjoy
-                translating product ideas into accessible interfaces, refining details in Figma, and
-                shipping reliably using Git, CI/CD and cloud tooling.
-              </p>
-            </div>
-          </motion.div>
         </motion.div>
 
         {/* What I Do Section */}

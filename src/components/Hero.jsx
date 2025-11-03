@@ -11,7 +11,7 @@ const Hero = () => {
   const texts = [
     'Web Developer',
     'UX/UI Designer', 
-    'Content Creator'
+    'Graphics Designer'
   ];
 
   useEffect(() => {
@@ -387,13 +387,16 @@ const Hero = () => {
             className="space-y-8"
           >
             <div className="space-y-4">
+               hi, it's me
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
                 className="hero__title"
+                
               >
-                <span className="text-gradient"> hi, I'm Bekalu  Temsgen</span>
+                
+                <span className="text-gradient"> Bekalu  Temsgen</span>
               </motion.h1>
               
               <motion.div
@@ -402,7 +405,7 @@ const Hero = () => {
                 transition={{ delay: 0.4, duration: 0.8 }}
                 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-text-muted"
               >
-                I'm a{' '}
+                a{' '}
                 <span className="text-primary min-h-[3.5rem] inline-block">
                   {currentText}
                   <span className="animate-pulse">|</span>

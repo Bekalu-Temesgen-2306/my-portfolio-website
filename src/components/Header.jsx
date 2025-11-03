@@ -85,7 +85,6 @@ const Header = () => {
                   className="profile-photo__img"
                 />
               </div>
-              <span className="logo-text"> BTkalu Temesg </span>
             </Link>
           </motion.div>
 
