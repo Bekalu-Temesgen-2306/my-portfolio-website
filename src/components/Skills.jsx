@@ -1,198 +1,201 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { Code, Palette, Database, Cloud, Zap  } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  Code, 
+  Server, 
+  Palette, 
+  Wrench, 
+  Users,
+  Sparkles
+} from 'lucide-react';
+import { skills } from '../data';
 
 const Skills = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const [activeCategory, setActiveCategory] = useState('frontend');
+  const [hoveredSkill, setHoveredSkill] = useState(null);
+  const [activeSkill, setActiveSkill] = useState(null);
 
   const skillCategories = [
-    { id: 'frontend', name: 'Frontend', icon: Code },
-    { id: 'design', name: 'Design', icon: Palette },
-    { id: 'backend', name: 'Backend', icon: Database },
-    { id: 'tools', name: 'Tools', icon: Cloud },
-  ];
-
-  const skills = {
-    frontend: [
-      { name: 'HTML', level: 99, color: '#E34F26' },
-      { name: 'CSS', level: 95, color: '#1572B6' },
-      { name: 'JavaScript', level: 90, color: '#F7DF1E' },
-      { name: 'React', level: 85, color: '#61DAFB' },
-      { name: 'TypeScript', level: 80, color: '#3178C6' },
-      { name: 'Next.js', level: 75, color: '#000000' },
-    ],
-    design: [
-      { name: 'UI/UX Design', level: 90, color: '#FF6B6B' },
-      { name: 'Figma', level: 85, color: '#F24E1E' },
-      { name: 'Adobe XD', level: 80, color: '#FF61F6' },
-      { name: 'Photoshop', level: 75, color: '#31A8FF' },
-      { name: 'Illustrator', level: 70, color: '#FF9A00' },
-    ],
-    backend: [
-      { name: 'Node.js', level: 80, color: '#339933' },
-      { name: 'Express.js', level: 75, color: '#000000' },
-      { name: 'MongoDB', level: 70, color: '#47A248' },
-      { name: 'PostgreSQL', level: 65, color: '#336791' },
-      { name: 'Firebase', level: 75, color: '#FFCA28' },
-    ],
-    tools: [
-      { name: 'Git & GitHub', level: 99, color: '#F05032' },
-      { name: 'VS Code', level: 95, color: '#007ACC' },
-      { name: 'Docker', level: 70, color: '#2496ED' },
-      { name: 'AWS', level: 65, color: '#FF9900' },
-      { name: 'Vercel', level: 80, color: '#000000' },
-    ],
-  };
-
-  const currentSkills = skills[activeCategory] || [];
-
-  const whatIDoItems = [
     {
-      title: 'Web Development',
-      description: 'Building responsive and modern web applications using the latest technologies and best practices.',
+      title: 'Frontend',
       icon: Code,
-      color: '#61DAFB'
+      gradient: 'from-blue-500/10 via-cyan-500/10 to-teal-500/10',
+      borderGradient: 'from-blue-400/40 via-cyan-400/40 to-teal-400/40',
+      iconColor: 'text-blue-400',
+      skills: skills.find(s => s.title === 'Frontend')?.items || [],
     },
     {
-      title: 'UI/UX Design',
-      description: 'Creating intuitive and beautiful user interfaces with focus on user experience and accessibility.',
+      title: 'Backend',
+      icon: Server,
+      gradient: 'from-emerald-500/10 via-green-500/10 to-lime-500/10',
+      borderGradient: 'from-emerald-400/40 via-green-400/40 to-lime-400/40',
+      iconColor: 'text-emerald-400',
+      skills: skills.find(s => s.title === 'Backend')?.items || [],
+    },
+    {
+      title: 'Design',
       icon: Palette,
-      color: '#FF6B6B'
+      gradient: 'from-purple-500/10 via-pink-500/10 to-rose-500/10',
+      borderGradient: 'from-purple-400/40 via-pink-400/40 to-rose-400/40',
+      iconColor: 'text-purple-400',
+      skills: skills.find(s => s.title === 'Design')?.items || [],
     },
     {
-      title: 'Problem Solving',
-      description: 'Analyzing complex problems and developing efficient, scalable solutions with clean code.',
-      icon: Zap,
-      color: '#FFD54F'
-    }
+      title: 'Tools',
+      icon: Wrench,
+      gradient: 'from-amber-500/10 via-orange-500/10 to-red-500/10',
+      borderGradient: 'from-amber-400/40 via-orange-400/40 to-red-400/40',
+      iconColor: 'text-amber-400',
+      skills: skills.find(s => s.title === 'Tools')?.items || [],
+    },
+    {
+      title: 'Soft Skills',
+      icon: Users,
+      gradient: 'from-indigo-500/10 via-violet-500/10 to-purple-500/10',
+      borderGradient: 'from-indigo-400/40 via-violet-400/40 to-purple-400/40',
+      iconColor: 'text-indigo-400',
+      skills:skills.find(s => s.title === 'Soft Skills')?.items || [],
+    },
   ];
 
   return (
-    <section id="skills" className="section bg-white dark:bg-dark">
-      <div className="container">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+    <section id="skills" className="py-24">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div 
+          className="text-center max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
         >
-          <h2 className="section-title">Skills & Expertise</h2>
-          <p className="section-subtitle">My technical skills and areas of expertise</p>
+          <p className="text-sm uppercase tracking-[0.4em] text-neon mb-2">Skillset</p>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl mt-4 text-slate-900 dark:text-white">Professional Expertise</h2>
+          <p className="text-slate-700 dark:text-slate-300 mt-4 text-lg">
+            Comprehensive skill set across modern web technologies, design principles, and collaborative tools.
+          </p>
         </motion.div>
 
-        {/* Skill Categories */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="skill-categories mb-12"
-        >
-          {skillCategories.map((category) => (
-            <motion.button
-              key={category.id}
-              whileHover={{ y: -2, scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setActiveCategory(category.id)}
-              className={`pill ${activeCategory === category.id ? 'pill--active' : ''}`}
-            >
-              <category.icon size={18} />
-              {category.name}
-            </motion.button>
-          ))}
-        </motion.div>
-
-        {/* Skills Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid grid-2 gap-8"
-        >
-          {/* Skills List */}
-          <div className="space-y-6">
-            {currentSkills.map((skill, index) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+          {skillCategories.map((category, idx) => {
+            const Icon = category.icon;
+            const isHovered = hoveredSkill === idx;
+            const isActive = activeSkill === idx;
+            const showDetails = isHovered || isActive;
+            
+            return (
               <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, x: -30 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                className="skill-item"
+                key={category.title}
+                className="relative group"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1, duration: 0.5 }}
+                viewport={{ once: true }}
+                onHoverStart={() => setHoveredSkill(idx)}
+                onHoverEnd={() => setHoveredSkill(null)}
+                onTap={() => setActiveSkill(isActive ? null : idx)}
               >
-                <div className="skill-header">
-                  <h4 className="skill-name">{skill.name}</h4>
-                  <span className="skill-percentage">{skill.level}%</span>
-                </div>
-                <div className="skill-bar-container">
-                  <motion.div
-                    className="skill-bar-fill"
-                    style={{ backgroundColor: skill.color }}
-                    initial={{ width: 0 }}
-                    animate={inView ? { width: `${skill.level}%` } : {}}
-                    transition={{ duration: 1.2, delay: 0.6 + index * 0.1, ease: "easeOut" }}
-                  />
-                </div>
+                <motion.div
+                  className={`relative rounded-3xl overflow-hidden border backdrop-blur-xl transition-all duration-300 ${
+                    showDetails 
+                      ? 'border-slate-300 dark:border-white/20 bg-white dark:bg-white/10 shadow-2xl' 
+                      : 'border-slate-200 dark:border-white/10 bg-white/90 dark:bg-white/5 shadow-lg'
+                  }`}
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {/* Gradient Background */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                  
+                  {/* Border Glow */}
+                  <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${category.borderGradient} opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10`} />
+                  
+                  <div className="relative p-6">
+                    {/* Header */}
+                    <div className="flex items-center justify-between mb-6">
+                      <motion.div
+                        className={`p-4 rounded-2xl bg-gradient-to-br ${category.gradient} border border-white/20 backdrop-blur-sm`}
+                        whileHover={{ rotate: 5, scale: 1.1 }}
+                        transition={{ type: 'spring', stiffness: 300 }}
+                      >
+                        <Icon className={`w-7 h-7 ${category.iconColor}`} />
+                      </motion.div>
+                      <motion.div
+                        animate={{ rotate: showDetails ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <Sparkles className={`w-5 h-5 ${showDetails ? category.iconColor : 'text-slate-400'}`} />
+                      </motion.div>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-display text-2xl font-semibold mb-2 text-slate-900 dark:text-white">{category.title}</h3>
+                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">
+                      {category.skills.length} {category.skills.length === 1 ? 'skill' : 'skills'}
+                    </p>
+
+                    {/* Skills List */}
+                    <AnimatePresence>
+                      {showDetails && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                          className="space-y-3 overflow-hidden"
+                        >
+                          {category.skills.map((skill, skillIdx) => (
+                            <motion.div
+                              key={skill.name}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: skillIdx * 0.08, duration: 0.3 }}
+                              className="rounded-xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/5 p-4 backdrop-blur-sm"
+                            >
+                              <div className="flex items-center justify-between mb-2">
+                                <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                                  {skill.name}
+                                </p>
+                                <span className="text-xs font-bold text-neon">{skill.level}%</span>
+                              </div>
+                              {skill.description && (
+                                <p className="text-xs text-slate-600 dark:text-slate-400 mb-2">
+                                  {skill.description}
+                                </p>
+                              )}
+                              <div className="h-2 rounded-full bg-slate-200 dark:bg-white/10 overflow-hidden">
+                                <motion.div
+                                  className={`h-full rounded-full bg-gradient-to-r ${category.borderGradient.replace('/40', '')}`}
+                                  initial={{ width: 0 }}
+                                  animate={{ width: `${skill.level}%` }}
+                                  transition={{ duration: 0.8, delay: skillIdx * 0.1, ease: 'easeOut' }}
+                                />
+                              </div>
+                            </motion.div>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    {/* Hint */}
+                    {!showDetails && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="mt-4 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400"
+                      >
+                        <Sparkles className="w-3 h-3" />
+                        <span>Hover or tap to explore</span>
+                      </motion.div>
+                    )}
+                  </div>
+                </motion.div>
               </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* What I Do Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-20"
-        >
-          <h2 className="text-2xl font-bold mb-12 text-center section-title">
-            What I Do Best
-          </h2>
-
-          <div className="grid grid-3 gap-8">
-            {whatIDoItems.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.9 + index * 0.1 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="what-i-do-card"
-              >
-                <div className="what-i-do-icon" style={{ backgroundColor: item.color + '20' }}>
-                  <item.icon size={32} style={{ color: item.color }} />
-                </div>
-                <h4 className="what-i-do-title">{item.title}</h4>
-                <p className="what-i-do-description">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="text-center mt-16"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn btn-primary"
-            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            See My Work in Action
-          </motion.button>
-        </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
 };
 
-export default Skills; 
+export default Skills;
+

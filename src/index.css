@@ -1,13 +1,65 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  @apply font-body bg-slate-50 dark:bg-ink text-slate-900 dark:text-slate-100 antialiased;
 }
+
+::selection {
+  @apply bg-neon/60 text-ink;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(6, 182, 212, 0.8);
+  border-radius: 999px;
+}
+
+.glass-panel {
+  @apply border border-white/20 dark:border-white/5 bg-white/80 dark:bg-glass-dark backdrop-blur-xl shadow-glass-light dark:shadow-glass-dark;
+}
+
+[class^='orbit-'],
+[class*=' orbit-'] {
+  --size: 120px;
+}
+
+.orbit-0 {
+  animation: orbit 16s linear infinite;
+}
+
+.orbit-1 {
+  animation: orbit 18s linear infinite reverse;
+}
+
+.orbit-2 {
+  animation: orbit 20s linear infinite;
+}
+
+.orbit-3 {
+  animation: orbit 22s linear infinite reverse;
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(120px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(120px) rotate(-360deg);
+  }
+}
+

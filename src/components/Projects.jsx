@@ -1,263 +1,150 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { Github, Eye, Code, Palette, Database } from 'lucide-react';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import clsx from 'classnames';
+import { projects } from '../data';
+import { ExternalLink, Github } from 'lucide-react';
+
+const tabs = ['All', 'Web', 'Fullstack'];
 
 const Projects = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const [activeFilter, setActiveFilter] = useState('all');
-
-  const filters = [
-    { id: 'all', name: 'All Projects' },
-    { id: 'web', name: 'Web Apps' },
-    { id: 'mobile', name: 'Mobile Apps' },
-    { id: 'design', name: 'UI/UX Design' },
-    { id: 'fullstack', name: 'Full Stack' },
-  ];
-
-  const projects = [
-
-    {
-      id: 1,
-      title: ' Hotel Website ',
-      description: 'A beautiful hotel application with  better booking functionality and tradational cermoney.',
-      image: '/images/projects/weather.jpg',
-      placeholder: true,
-      category: 'fullstack',
-      technologies: [' React.js', 'Node js ', 'mySql', 'tailwind CSS'],
-       liveUrl: 'null',
-       githubUrl: 'https://github.com/bekalu-temesgen-2306/hotel-website',
-      features: ['booking functionality', 'coffee cermony ', ' enables visit historical place', 'Responsive Design'],
-      status: 'completed'
-    },
-    {
-      id: 2,
-      title: 'EthioTour Website',
-      description: 'A comprehensive tourism website showcasing Ethiopian destinations with booking functionality, interactive maps, and cultural information.',
-      image: '/images/projects/ethiotour.jpg',
-      placeholder: true,
-      category: 'web',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
-      liveUrl: 'null',
-      githubUrl: 'null',
-      features: ['Responsive Design', 'Booking System', 'Interactive Maps', 'Admin Dashboard'],
-      status: 'completed'
-    },
-    {
-      id: 3,
-      title: 'E-Commerce Platform',
-      description: 'A modern e-commerce platform with payment integration, user authentication, and inventory management.',
-      image: '/images/projects/ecommerce.jpg',
-      placeholder: true,
-      category: 'fullstack',
-      technologies: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL'],
-      liveUrl: 'null',
-       githubUrl: 'null',
-      features: ['Payment Processing', 'User Authentication', 'Admin Panel', 'Real-time Updates'],
-      status: 'completed'
-    },
-    
-     
-    
-    {
-      id: 4,
-      title: 'Portfolio Website',
-      description: 'A modern, responsive portfolio website built with React and Framer Motion for smooth animations.',
-      image: '/images/projects/portfolioImage.png',
-
-      placeholder: false,
-      category: 'web',
-      technologies: ['React', 'TypeScript', 'Framer Motion', 'Tailwind CSS'],
-      liveUrl: 'https://bekalu-temesgen-portfolio.vercel.app',
-      githubUrl: 'https://github.com/bekalu-temesgen-2306/my-portfolio-website',
-      features: ['Smooth Animations', 'Dark Mode', 'Responsive Design', 'SEO Optimized'],
-      status: 'completed'
-    },
-    {
-      id: 5,
-      title: 'Mobile Banking App',
-      description: 'A mobile banking application with secure authentication, transaction history, and bill payments.',
-      image: '/images/projects/banking.jpg',
-      placeholder: true,
-      category: 'mobile',
-      technologies: ['React Native', 'Node.js', 'MongoDB', 'JWT'],
-      liveUrl: null,
-      // githubUrl: 'https://github.com/bekalu/banking-app',
-      features: ['Secure Authentication', 'Transaction History', 'Bill Payments', 'Push Notifications'],
-      status: 'in-progress'
-    }
-  ];
-
-  const filteredProjects = activeFilter === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === activeFilter);
-
-  const getCategoryIcon = (category) => {
-    switch (category) {
-      case 'web': return Code;
-      case 'mobile': return Database;
-      case 'design': return Palette;
-      case 'fullstack': return Code;
-      default: return Code;
-    }
-  };
+  const [filter, setFilter] = useState('All');
+  const filtered = filter === 'All' ? projects : projects.filter(project => project.category === filter);
 
   return (
-    <section id="projects" className="section bg-light dark:bg-dark-light">
-      <div className="container">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="section-title">Featured Projects</h2>
-          <p className="section-subtitle">Selected work with live demos</p>
-        </motion.div>
-
-        {/* Filter Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="filter-bar mb-12"
-        >
-          {filters.map((filter) => (
-            <motion.button
-              key={filter.id}
-              whileHover={{ y: -2, scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setActiveFilter(filter.id)}
-              className={`pill ${activeFilter === filter.id ? 'pill--active' : ''}`}
-            >
-              {filter.name}
-            </motion.button>
-          ))}
-        </motion.div>
-
-        {/* Projects Grid */}
-        <AnimatePresence mode="wait">
-          <motion.div 
-            key={activeFilter}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.5 }}
-            className="grid grid-3 gap-8"
-          >
-            {filteredProjects.map((project, index) => {
-              const CategoryIcon = getCategoryIcon(project.category);
-              return (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ y: -8 }}
-                  className="project-card project-card--professional"
-                >
-                  {/* Project Header */}
-                  <div className="project-header">
-                    <div className="project-header-top">
-                      <div className="project-category">
-                        <CategoryIcon size={18} className="category-icon" />
-                        <span className="category-text">{project.category === 'web' ? 'Web App' : project.category === 'fullstack' ? 'Full Stack' : project.category === 'mobile' ? 'Mobile App' : 'UI/UX Design'}</span>
-                      </div>
-                      {project.status === 'in-progress' && (
-                        <span className="status-badge status-badge--header">In Progress</span>
-                      )}
-                    </div>
-                    <h3 className="project-title">
-                      {project.title}
-                    </h3>
-                  </div>
-
-                  {/* Project Description */}
-                  <div className="project-description">
-                    <p>{project.description}</p>
-                  </div>
-
-                  {/* Technologies */}
-                  <div className="project-technologies">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span key={techIndex} className="tech-tag">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Features List */}
-                  {/* <div className="project-features">
-                    <ul>
-                      {project.features.slice(0, 3).map((feature, featureIndex) => (
-                        <li key={featureIndex}>
-                          <span className="feature-icon">✓</span>
-                          <span className="feature-text">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div> */}
-
-                  {/* Action Buttons */}
-                  <div className="project-actions">
-                    {project.liveUrl && (
-                      <motion.a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.05, y: -2 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="btn btn-primary btn-sm"
-                      >
-                        <Eye size={16} />
-                        Live Demo
-                      </motion.a>
-                    )}
-                    <motion.a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="btn btn-secondary btn-sm"
-                    >
-                      <Github size={16} />
-                      Code
-                    </motion.a>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-center mt-16"
-        >
-          <p className="text-lg text-text-muted mb-6">
-            Interested in working together? Let's discuss your project!
+    <section id="projects" className="py-24">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center max-w-2xl mx-auto">
+          <p className="text-sm uppercase tracking-[0.35em] text-neon mb-2">Projects</p>
+          <h2 className="font-display text-3xl sm:text-4xl text-slate-900 dark:text-white mt-4">Featured Work</h2>
+          <p className="text-slate-700 dark:text-slate-300 mt-4 text-lg">
+            A collection of projects showcasing modern web development and design.
           </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn btn-primary"
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            Get In Touch
-          </motion.button>
-        </motion.div>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-4 mt-10">
+          {tabs.map(tab => (
+            <button
+              key={tab}
+              onClick={() => setFilter(tab)}
+              className={clsx(
+                'px-5 py-2 rounded-full border text-sm font-medium transition-colors',
+                filter === tab
+                  ? 'bg-neon text-ink border-transparent shadow-lg'
+                  : 'bg-white/90 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-white/10'
+              )}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-10 mt-14">
+          {filtered.map((project, idx) => (
+            <motion.div
+              key={project.title}
+              className="relative overflow-hidden rounded-3xl border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-white/5 backdrop-blur-xl shadow-lg dark:shadow-glass-dark group"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1 }}
+              whileHover={{ y: -8 }}
+            >
+              <div className="h-64 sm:h-72 relative overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900">
+                {/* Project Image */}
+                {project.image ? (
+                  <>
+                    <motion.img
+                      src={project.image}
+                      alt={`${project.title} screenshot`}
+                      className="w-full h-full object-cover object-top"
+                      initial={{ scale: 1 }}
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.4, ease: 'easeOut' }}
+                      loading="lazy"
+                    />
+                    {/* Overlay on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-white text-center px-6 z-10">
+                      <motion.div
+                        initial={{ y: 20, opacity: 0 }}
+                        whileHover={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.1 }}
+                        className="flex flex-col items-center gap-3"
+                      >
+                        <p className="text-sm uppercase tracking-[0.4em] font-medium">View Project</p>
+                        {project.live && (
+                          <motion.a
+                            href={project.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-4 py-2 rounded-full bg-neon text-ink font-semibold text-sm hover:bg-neon/90 transition-colors"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            Visit Live Site
+                          </motion.a>
+                        )}
+                      </motion.div>
+                    </div>
+                  </>
+                ) : (
+                  // Placeholder if no image is provided
+                  <div className="w-full h-full bg-gradient-to-br from-neon/20 via-cyan-400/20 to-teal-300/20 flex items-center justify-center">
+                    <div className="text-center">
+                      <p className="text-slate-700 dark:text-slate-300 text-lg font-semibold">{project.title}</p>
+                      <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Screenshot coming soon</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className="relative p-6 flex flex-col gap-6">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.4em] text-neon font-medium">{project.category}</p>
+                  <h3 className="font-display text-2xl mt-2 text-slate-900 dark:text-white">{project.title}</h3>
+                  <p className="text-slate-700 dark:text-slate-300 mt-3">{project.description}</p>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map(tech => (
+                    <div
+                      key={tech}
+                      className="px-3 py-1 rounded-full border border-slate-200 dark:border-white/10 text-xs text-slate-700 dark:text-slate-200 bg-white/80 dark:bg-white/5"
+                      title={tech}
+                    >
+                      {tech}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex gap-3">
+                  {project.live && (
+                    <motion.a
+                      href={project.live}
+                      target="_blank"
+                      className="flex items-center gap-2 px-4 py-2 rounded-full border border-neon/40 text-neon hover:bg-neon/10 transition-colors"
+                      whileHover={{ scale: 1.05, x: 4 }}
+                    >
+                      <ExternalLink size={16} /> Live
+                    </motion.a>
+                  )}
+                  {project.github && (
+                    <motion.a
+                      href={project.github}
+                      target="_blank"
+                      className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/10 transition-colors"
+                      whileHover={{ scale: 1.05, x: 4 }}
+                    >
+                      <Github size={16} /> Code
+                    </motion.a>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
-export default Projects; 
+export default Projects;
+

@@ -1,106 +1,78 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { motion } from 'framer-motion';
 
 const About = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const timeline = [
-    {
-      year: "2023 - Present",
-      text: "Computer Science Student, Bahir Dar University (focus on: Web Development & UX/UI Design)",
-    },
-
-{
-      year: "Jun2025 - Aug2025",
-      text: "Alyah Software Development Plc., Front-End Developer Intern",
-    },
-
-
-    {
-      year: "2024",
-      text: "Web Programming Certificate, Udacity",
-    },
-    {
-      year: "2023",
-      text: "SSS Training Certification, Bahir Dar University",
-    },
-    {
-      year: "2021",
-      text: "Started Programming Journey, Self-learning through online resources",
-    },
-  ];
-
   return (
-    <section id="about" className="section bg-light dark:bg-dark-light">
-      <div className="container">
-        {/* Intro */}
+    <section id="about" className="py-24">
+      <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
         <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="relative hidden lg:flex justify-center"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
         >
-          <h2 className="section-title">About Me</h2>
-          <div className="text-lg text-text-muted max-w-3xl mx-auto space-y-4 text-left">
-            <p>
-              I'm Bekalu Temesgen, a Front-End Developer dedicated to creating user-friendly, accessible, 
-              and visually appealing digital experiences. I enjoy turning ideas into functional interfaces
-              that offer real value and smooth user interaction.
-            </p>
-            <p>
-              I have worked on a range of projects that address 
-              practical needs, which has helped me build confidence and strong problem-solving skills. 
-              I'm always open to collaboration and opportunities to build meaningful digital solutions.
-            </p>
-          </div>
+          <div className="absolute inset-x-10 -top-6 h-64 bg-gradient-to-br from-neon/20 to-amber-300/10 blur-[70px]" />
+          <motion.div
+            className="relative w-72 h-72 rounded-[40px] border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-white/5 shadow-lg dark:shadow-glass-dark overflow-hidden backdrop-blur-xl"
+            animate={{ y: [0, -12, 0] }}
+            transition={{ repeat: Infinity, duration: 7 }}
+          >
+            <img
+              src="/images/bekalu.jpg"
+              alt="Bekalu Temesgen"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4 text-white">
+              <p className="text-sm uppercase tracking-[0.3em]">Bekalu Temesgen</p>
+              <p className="text-xs opacity-70 mt-1">Bahir Dar • Remote-ready</p>
+            </div>
+          </motion.div>
         </motion.div>
 
-        {/* Timeline (Compact Resume Style) */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="space-y-4"
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }} 
+          whileInView={{ opacity: 1, y: 0 }} 
+          transition={{ delay: 0.2 }}
+          className="lg:pl-8"
         >
-          <h3 className="text-2xl font-bold mb-6">🎓 Education & Experience</h3>
-          <div className="space-y-4">
-            {timeline.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: 30 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                className="pl-2"
-              >
-                <p className="text-base text-text-muted">
-                  <span className="font-semibold text-primary">
-                    {item.year}
-                  </span>{" "}
-                  · {item.text}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* See More Button */}
-          <div className="mt-6 text-center">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn btn-primary"
-              onClick={() =>
-                document.getElementById("projects")?.scrollIntoView({
-                  behavior: "smooth",
-                })
-              }
+          <p className="text-sm uppercase tracking-[0.4em] text-neon mb-4 font-medium">About me</p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display text-slate-900 dark:text-white mb-8 leading-tight">
+            Frontend Developer &<br />
+            <span className="bg-gradient-to-r from-neon via-cyan-400 to-teal-300 bg-clip-text text-transparent">
+              React Specialist
+            </span>
+          </h2>
+          
+          <div className="space-y-6 text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-[1.8] max-w-2xl">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              viewport={{ once: true }}
+              className="relative pl-6 border-l-2 border-neon/30 dark:border-neon/20"
             >
-              See More
-            </motion.button>
+              I'm a <strong className="text-slate-900 dark:text-white font-semibold">Frontend Developer</strong> specializing in React, building clean, performant interfaces that solve real problems. My approach combines thoughtful UI design with solid engineering—writing maintainable code, thinking through user flows, and shipping features that matter.
+            </motion.p>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              viewport={{ once: true }}
+              className="relative pl-6 border-l-2 border-neon/30 dark:border-neon/20"
+            >
+              I enjoy building responsive web applications, crafting smooth animations, and creating intuitive user experiences. I'm self-driven and learn best through hands-on projects, documentation, and experimenting with new technologies. Whether it's a complex state management challenge or a pixel-perfect design implementation, I focus on delivering quality work that teams can rely on.
+            </motion.p>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              viewport={{ once: true }}
+              className="relative pl-6 border-l-2 border-neon/30 dark:border-neon/20"
+            >
+              I bring clear communication, problem-solving skills, and a collaborative mindset to every project. Long-term, I'm focused on growing as a technical leader while contributing to products that make a meaningful impact.
+            </motion.p>
           </div>
         </motion.div>
       </div>
@@ -109,3 +81,4 @@ const About = () => {
 };
 
 export default About;
+

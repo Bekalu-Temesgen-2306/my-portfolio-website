@@ -1,44 +1,33 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import Header from './components/Header';
+import ParticleBackground from './components/ParticleBackground';
+import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
-import Achievements from './components/Achievements';
+import Resume from './components/Resume';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
- 
-import ScrollToTop from './components/ScrollToTop';
-import './App.css';
+import { ThemeProvider } from './components/ThemeProvider';
 
-function App() {
+const App = () => {
   return (
-    <HelmetProvider>
-      <Router>
-        <div className="App">
-          <Header />
-          <main>
-            <Routes>
-              <Route path="/" element={
-                <>
-                  <Hero />
-                  <About />
-                  <Skills />
-                  <Projects />
-                  <Achievements />
-                  <Contact />
-                </>
-              } />
-            </Routes>
-          </main>
-          <Footer />
-          <ScrollToTop />
-        </div>
-      </Router>
-    </HelmetProvider>
+    <ThemeProvider>
+      <div className="min-h-screen bg-slate-50 dark:bg-ink transition-colors duration-500">
+        <ParticleBackground />
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Resume />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
-}
+};
 
-export default App; 
+export default App;
+
