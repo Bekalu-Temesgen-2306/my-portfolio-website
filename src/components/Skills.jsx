@@ -96,17 +96,17 @@ const Skills = () => {
                 <motion.div
                   className={`relative rounded-3xl overflow-hidden border backdrop-blur-xl transition-all duration-300 ${
                     showDetails 
-                      ? 'border-slate-300 dark:border-white/20 bg-white dark:bg-white/10 shadow-2xl' 
+                      ? 'border-slate-300 dark:border-white/30 bg-white dark:bg-white/15 shadow-2xl' 
                       : 'border-slate-200 dark:border-white/10 bg-white/90 dark:bg-white/5 shadow-lg'
                   }`}
                   whileHover={{ y: -6, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   {/* Gradient Background */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-0 group-hover:opacity-100 dark:group-hover:opacity-30 transition-opacity duration-500`} />
                   
                   {/* Border Glow */}
-                  <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${category.borderGradient} opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10`} />
+                  <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${category.borderGradient} opacity-0 group-hover:opacity-100 dark:group-hover:opacity-20 blur-xl transition-opacity duration-500 -z-10`} />
                   
                   <div className="relative p-6">
                     {/* Header */}
@@ -148,7 +148,7 @@ const Skills = () => {
                               initial={{ opacity: 0, x: -20 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: skillIdx * 0.08, duration: 0.3 }}
-                              className="rounded-xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/5 p-4 backdrop-blur-sm"
+                              className="rounded-xl border border-slate-200 dark:border-white/20 bg-white/80 dark:bg-white/10 p-4 backdrop-blur-sm"
                             >
                               <div className="flex items-center justify-between mb-2">
                                 <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
@@ -161,9 +161,19 @@ const Skills = () => {
                                   {skill.description}
                                 </p>
                               )}
-                              <div className="h-2 rounded-full bg-slate-200 dark:bg-white/10 overflow-hidden">
+                              <div className="h-2 rounded-full bg-slate-200 dark:bg-white/20 overflow-hidden">
                                 <motion.div
-                                  className={`h-full rounded-full bg-gradient-to-r ${category.borderGradient.replace('/40', '')}`}
+                                  className={`h-full rounded-full bg-gradient-to-r ${
+                                    category.title === 'Frontend' 
+                                      ? 'from-blue-500 to-cyan-400 dark:from-blue-400 dark:to-cyan-300'
+                                      : category.title === 'Backend'
+                                      ? 'from-emerald-500 to-green-400 dark:from-emerald-400 dark:to-green-300'
+                                      : category.title === 'Design'
+                                      ? 'from-purple-500 to-pink-400 dark:from-purple-400 dark:to-pink-300'
+                                      : category.title === 'Tools'
+                                      ? 'from-amber-500 to-orange-400 dark:from-amber-400 dark:to-orange-300'
+                                      : 'from-indigo-500 to-violet-400 dark:from-indigo-400 dark:to-violet-300'
+                                  }`}
                                   initial={{ width: 0 }}
                                   animate={{ width: `${skill.level}%` }}
                                   transition={{ duration: 0.8, delay: skillIdx * 0.1, ease: 'easeOut' }}
