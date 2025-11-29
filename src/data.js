@@ -2,7 +2,9 @@ export const socials = [
   { name: 'GitHub', href: 'https://github.com/Bekalu-Temesgen-2306', icon: 'github' },
   { name: 'LinkedIn', href: 'https://linkedin.com/in/Bekalu-Temesgen2306', icon: 'linkedin' },
   { name: 'Twitter', href: 'https://twitter.com/bekalu_tem2123', icon: 'twitter' },
-  { name: 'Email', href: 'mailto:bekalutemesgen74@gmail.com', icon: 'mail' },
+  // { name: 'Email', href: 'mailto:bekalutemesgen74@gmail.com', icon: 'mail' },
+    { name: 'Instagram', href: 'https://instagram.com/bek_dad2306', icon: 'instagram' },
+
 ];
 
 export const skills = [
@@ -75,20 +77,12 @@ export const projects = [
     title: 'EthioTour Website',
     description: 'Destination discovery platform with interactive maps and Ethiopian heritage storytelling.',
     live: null,
-    github: 'https://github.com/bekalu-temesgen-2306/my-portfolio-website',
+    github: 'null',
     tech: ['React', 'Node.js', 'MongoDB', 'Express'],
     category: 'Web',
     image: '/images/projects/ethiotour-website.png',
   },
-  {
-    title: 'Portfolio Website',
-    description: 'Modern glassmorphism portfolio with smooth Framer Motion storytelling and SEO-first build.',
-    live: 'https://bekalu-temesgen-portfolio.vercel.app',
-    github: 'https://github.com/bekalu-temesgen-2306/my-portfolio-website',
-    tech: ['React', 'TypeScript', 'Framer Motion', 'Tailwind'],
-    category: 'Web',
-    image: '/images/projects/portfolioImage.png',
-  },
+
   {
     title: 'E-Commerce Platform',
     description: 'High-converting storefront with auth, inventory, Stripe payments, and real-time updates.',
@@ -97,6 +91,16 @@ export const projects = [
     tech: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL'],
     category: 'Fullstack',
     image: '/images/projects/ecommerce-platform.png',
+  },
+
+   {
+    title: 'StudyHive ',
+    description: 'Modern and interactive platform where students get reliable and inclusive materials including past exams .',
+    live: 'https://StudyHive.vercel.app',
+    github: 'https://github.com/bekalu-temesgen-2306/StudyHive',
+    tech: ['React', 'Node', 'MySql', 'Tailwind'],
+    category: 'Fullstack',
+    image: '/images/projects/StudyHive.png',
   },
 ];
 

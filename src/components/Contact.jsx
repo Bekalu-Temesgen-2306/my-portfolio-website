@@ -35,7 +35,7 @@ const Contact = () => {
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-white/5 backdrop-blur p-4 shadow-sm">
                 <p className="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Based in</p>
-                <p className="text-lg font-semibold text-slate-900 dark:text-white mt-2">Addis Ababa, Ethiopia</p>
+                <p className="text-lg font-semibold text-slate-900 dark:text-white mt-2">Bahir Dar, Ethiopia</p>
               </div>
               <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-white/5 backdrop-blur p-4 shadow-sm">
                 <p className="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Availability</p>

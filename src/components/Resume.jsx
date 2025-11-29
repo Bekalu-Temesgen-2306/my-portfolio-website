@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   GraduationCap, 
@@ -19,10 +19,10 @@ const tabs = [
 
 const education = [
   {
-    institution: 'Addis Ababa University',
+    institution: 'Bahir Dar University',
     degree: 'Bachelor of Science in Computer Science',
-    period: '2020 - 2024',
-    location: 'Addis Ababa, Ethiopia',
+    period: '2023 - Present',
+    location: 'Bahir Dar, Ethiopia',
     description: 'Focused on software engineering, algorithms, data structures, and web development. Graduated with honors.',
     courses: ['Web Development', 'Database Systems', 'Software Engineering', 'Computer Networks'],
   },
@@ -41,7 +41,7 @@ const experience = [
     company: 'Alyah Software',
     position: 'Frontend Developer Intern',
     period: '2023 - 2024',
-    location: 'Addis Ababa, Ethiopia',
+    location: 'Bahir Dar, Ethiopia',
     description: 'Developed and maintained responsive web applications using React and modern JavaScript. Collaborated with cross-functional teams to deliver high-quality software solutions.',
     achievements: [
       'Built 3+ production-ready React applications',
@@ -104,6 +104,32 @@ const achievements = [
     description: 'Completed 20+ online courses and certifications in web development, keeping up with latest technologies.',
   },
 ];
+
+const LeafContainer = ({ children, rotation, offset }) => {
+  const containerRef = useRef(null);
+  
+  useEffect(() => {
+    const updateTransform = () => {
+      if (containerRef.current) {
+        if (window.innerWidth >= 768) {
+          containerRef.current.style.transform = `rotate(${rotation}deg) translateY(${offset}px)`;
+        } else {
+          containerRef.current.style.transform = 'none';
+        }
+      }
+    };
+    
+    updateTransform();
+    window.addEventListener('resize', updateTransform);
+    return () => window.removeEventListener('resize', updateTransform);
+  }, [rotation, offset]);
+  
+  return (
+    <div ref={containerRef} className="relative group transition-transform duration-300">
+      {children}
+    </div>
+  );
+};
 
 const TimelineItem = ({ item, index, type, isLast = false }) => {
   const Icon = type === 'education' ? GraduationCap : Briefcase;
@@ -325,36 +351,108 @@ const Resume = () => {
             )}
 
             {activeTab === 'achievements' && (
-              <div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-6">
-                {achievements.map((achievement, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.1, duration: 0.5 }}
-                    viewport={{ once: true }}
-                    className="rounded-2xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-sm p-6 hover:bg-white/80 dark:hover:bg-white/10 transition-all duration-300 group"
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className="p-3 rounded-xl bg-gradient-to-br from-amber-400/20 to-orange-400/20 border border-amber-400/30 group-hover:scale-110 transition-transform duration-300">
-                        <Award className="w-5 h-5 text-amber-400" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white">
-                            {achievement.title}
-                          </h3>
-                          <span className="text-xs text-neon font-semibold px-2 py-1 rounded-full bg-neon/10">
-                            {achievement.year}
-                          </span>
-                        </div>
-                          <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                            {achievement.description}
-                          </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+              <div className="max-w-5xl mx-auto relative">
+                {/* Central stem/branch line - desktop only */}
+                <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-neon/30 via-cyan-400/30 to-teal-300/30 transform -translate-x-1/2 hidden md:block" />
+                
+                {/* Leaf-like achievements positioned organically */}
+                <div className="relative space-y-6 md:space-y-12">
+                  {achievements.map((achievement, idx) => {
+                    // Alternate left and right positioning for organic flow
+                    const isLeft = idx % 2 === 0;
+                    const rotations = [-3, 2, -2, 3]; // Slight rotations for natural look
+                    const offsets = [0, -20, 20, -15]; // Vertical offsets
+                    
+                    return (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, scale: 0.8, x: isLeft ? -50 : 50 }}
+                        whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                        transition={{ 
+                          delay: idx * 0.15, 
+                          duration: 0.6,
+                          type: 'spring',
+                          stiffness: 100
+                        }}
+                        viewport={{ once: true }}
+                        className={`relative ${isLeft ? 'md:pr-[55%]' : 'md:pl-[55%]'} ${idx > 0 ? 'md:mt-[-20px]' : ''}`}
+                      >
+                        {/* Leaf shape container with organic positioning on desktop */}
+                        <LeafContainer rotation={rotations[idx]} offset={offsets[idx]}>
+                          {/* Leaf-like card with organic shape */}
+                          <motion.div
+                            whileHover={{ 
+                              scale: 1.05, 
+                              rotate: rotations[idx] * 0.5,
+                              y: -8
+                            }}
+                            className="relative rounded-3xl md:rounded-[40%_60%_60%_40%_/_40%_40%_60%_60%] border-2 border-slate-200 dark:border-white/10 bg-gradient-to-br from-white/95 to-white/80 dark:from-white/10 dark:to-white/5 backdrop-blur-xl p-6 md:p-8 shadow-lg dark:shadow-glass-dark transition-all duration-500 overflow-hidden"
+                          >
+                            {/* Leaf vein pattern - subtle background */}
+                            <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.08] pointer-events-none">
+                              <svg className="w-full h-full" viewBox="0 0 200 200" preserveAspectRatio="none">
+                                <path
+                                  d="M 100 20 Q 120 60, 140 100 T 100 180 Q 80 140, 60 100 T 100 20"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  fill="none"
+                                />
+                                <path
+                                  d="M 100 20 L 100 180"
+                                  stroke="currentColor"
+                                  strokeWidth="0.8"
+                                />
+                                <path
+                                  d="M 100 60 Q 110 80, 120 100"
+                                  stroke="currentColor"
+                                  strokeWidth="0.6"
+                                />
+                                <path
+                                  d="M 100 60 Q 90 80, 80 100"
+                                  stroke="currentColor"
+                                  strokeWidth="0.6"
+                                />
+                              </svg>
+                            </div>
+
+                            {/* Content */}
+                            <div className="relative z-10">
+                              <div className="flex flex-col sm:flex-row items-start gap-4 mb-4">
+                                <motion.div
+                                  whileHover={{ rotate: 15, scale: 1.1 }}
+                                  className="p-3 rounded-2xl bg-gradient-to-br from-amber-400/20 via-orange-400/20 to-rose-400/20 border border-amber-400/30 shadow-sm flex-shrink-0"
+                                >
+                                  <Award className="w-6 h-6 text-amber-400" />
+                                </motion.div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3 mb-2">
+                                    <h3 className="font-display text-lg md:text-xl font-semibold text-slate-900 dark:text-white leading-tight">
+                                      {achievement.title}
+                                    </h3>
+                                    <span className="text-xs text-neon font-bold px-3 py-1 rounded-full bg-gradient-to-r from-neon/10 to-cyan-400/10 border border-neon/20 whitespace-nowrap self-start sm:self-auto">
+                                      {achievement.year}
+                                    </span>
+                                  </div>
+                                  <p className="text-sm md:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+                                    {achievement.description}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Hover glow effect */}
+                            <div className="absolute inset-0 rounded-[inherit] bg-gradient-to-br from-amber-400/0 via-orange-400/0 to-rose-400/0 group-hover:from-amber-400/10 group-hover:via-orange-400/10 group-hover:to-rose-400/10 transition-all duration-500 pointer-events-none" />
+                          </motion.div>
+
+                          {/* Connection point to stem (desktop only) */}
+                          {idx < achievements.length - 1 && (
+                            <div className={`hidden md:block absolute top-1/2 ${isLeft ? 'right-0' : 'left-0'} w-[45%] h-0.5 bg-gradient-to-r ${isLeft ? 'from-transparent via-neon/40 to-neon/40' : 'from-neon/40 via-neon/40 to-transparent'} transform translate-y-[-1px]`} />
+                          )}
+                        </LeafContainer>
+                      </motion.div>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </motion.div>

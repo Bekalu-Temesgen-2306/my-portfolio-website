@@ -17,7 +17,7 @@ const About = () => {
             transition={{ repeat: Infinity, duration: 7 }}
           >
             <img
-              src="/images/bekalu.jpg"
+              src="/images/bekalu1.jpg"
               alt="Bekalu Temesgen"
               className="w-full h-full object-cover"
             />
@@ -37,9 +37,9 @@ const About = () => {
         >
           <p className="text-sm uppercase tracking-[0.4em] text-neon mb-4 font-medium">About me</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display text-slate-900 dark:text-white mb-8 leading-tight">
-            Frontend Developer &<br />
+            Web Developer &<br />
             <span className="bg-gradient-to-r from-neon via-cyan-400 to-teal-300 bg-clip-text text-transparent">
-              React Specialist
+              Frontend Specialist
             </span>
           </h2>
           
@@ -51,7 +51,7 @@ const About = () => {
               viewport={{ once: true }}
               className="relative pl-6 border-l-2 border-neon/30 dark:border-neon/20"
             >
-              I'm a <strong className="text-slate-900 dark:text-white font-semibold">Frontend Developer</strong> specializing in React, building clean, performant interfaces that solve real problems. My approach combines thoughtful UI design with solid engineering—writing maintainable code, thinking through user flows, and shipping features that matter.
+              I'm a <strong className="text-slate-900 dark:text-white font-semibold">Web Developer</strong> specializing in Frontend Development, building clean, performant interfaces that solve real problems. My approach combines thoughtful UI design with solid engineering—writing maintainable code, thinking through user flows, and shipping features that matter.
             </motion.p>
             
             <motion.p

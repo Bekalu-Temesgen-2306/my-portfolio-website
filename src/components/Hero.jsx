@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail,Instagram } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'classnames';
 import { socials } from '../data';
 
-const iconMap = { github: Github, linkedin: Linkedin, twitter: Twitter, mail: Mail };
+const iconMap = { github: Github, linkedin: Linkedin, twitter: Twitter, mail: Mail, instagram: Instagram };
 
 const roles = [
   'Web Developer',
   'UX/UI Designer',
+  'Front Developer',
   'Content Creator',
   'Problem Solver',
 ];
@@ -100,6 +101,8 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
           >
+              <h2 className=" text-sm text-neon/90 mt-0">Follow Me On:</h2>
+
             {socials.map((social, idx) => {
               const Icon = iconMap[social.icon];
               return (
@@ -114,6 +117,7 @@ const Hero = () => {
                   <div className="p-3 rounded-2xl bg-white/80 dark:bg-white/10 border border-white/40 text-slate-700 dark:text-slate-200 shadow-lg">
                     <Icon size={18} />
                   </div>
+                
                   <span className="absolute left-1/2 -translate-x-1/2 mt-2 text-xs text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100 transition">
                     {social.name}
                   </span>
