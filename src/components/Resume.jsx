@@ -467,7 +467,8 @@ const Resume = () => {
           viewport={{ once: true }}
         >
           <motion.a
-            href="#"
+            href="/resume.pdf"
+            download="Bekalu_Temesgen_Resume.pdf"
             className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-neon text-ink font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}

@@ -88,7 +88,7 @@ const Hero = () => {
           <div className="w-80 h-80 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-neon/20 to-amber-400/10 blur-3xl absolute -top-12 left-10" />
           <div className="relative w-56 h-56 sm:w-72 sm:h-72 rounded-[32px] bg-white/10 dark:bg-white/5 border border-white/20 backdrop-blur-xl mx-auto flex items-center justify-center shadow-glass-light dark:shadow-glass-dark">
             <motion.img
-              src="/images/bekalu.jpg"
+              src="/images/bekalu1.jpg"
               alt="Bekalu Temesgen"
               className="rounded-[28px] w-44 h-44 sm:w-56 sm:h-56 object-cover shadow-xl"
               animate={{ y: [0, -12, 0] }}
