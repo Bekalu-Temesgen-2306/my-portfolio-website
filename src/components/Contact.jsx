@@ -82,7 +82,7 @@ const Contact = () => {
                 Message sent successfully! ✓
               </p>
               <p className="text-slate-600 dark:text-slate-300 mt-2">
-                Thank you — I'll get back to you soon.
+                Thank you — Your message has been sent. I'll get back to you within 24 hours.
               </p>
             </div>
           ) : (
